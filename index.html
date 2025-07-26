@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>נלחמים בחרם - יחד ננצח</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons (e.g., arrow for accordion, Discord) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* הגדרות בסיסיות לגוף המסמך */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC; /* רקע בהיר ונקי */
+            color: #374151; /* טקסט כהה לקריאות טובה */
+        }
+        /* רקע לכותרת העליונה עם גרדיאנט דינמי */
+        .header-bg {
+            background: linear-gradient(135deg, #6366F1, #EC4899); /* אינדיגו וורוד עז */
+        }
+        /* עיצוב כפתור ראשי */
+        .btn-primary {
+            background-color: #22C55E; /* ירוק רענן לפעולות חיוביות */
+            color: white;
+            padding: 14px 30px; /* כפתורים גדולים ונוחים יותר */
+            border-radius: 9999px; /* כפתור מעוגל לחלוטין */
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(34, 197, 94, 0.3); /* צל עדין */
+        }
+        /* אפקט ריחוף לכפתור ראשי */
+        .btn-primary:hover {
+            background-color: #16A34A; /* ירוק כהה יותר בלחיצה */
+            transform: translateY(-3px); /* אפקט ריחוף עדין */
+            box-shadow: 0 6px 15px rgba(34, 197, 94, 0.4);
+        }
+        /* עיצוב כפתור משני (לדוגמה: דיסקורד) */
+        .btn-secondary {
+            background-color: #7B68EE; /* סגול לדיסקורד */
+            color: white;
+            padding: 14px 30px;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(123, 104, 238, 0.3);
+        }
+        /* אפקט ריחוף לכפתור משני */
+        .btn-secondary:hover {
+            background-color: #6A5ACD;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(123, 104, 238, 0.4);
+        }
+        /* עיצוב כרטיסים כללי (לסקשנים שונים) */
+        .card {
+            background-color: white;
+            border-radius: 1.5rem; /* פינות מעוגלות יותר */
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.08), 0 6px 12px -2px rgba(0, 0, 0, 0.04); /* צל עמוק יותר */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* אפקט ריחוף לכרטיסים */
+        .card:hover {
+            transform: translateY(-7px); /* ריחוף בולט יותר */
+            box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+        }
+        /* רקע לכותרת התחתונה */
+        .footer-bg {
+            background-color: #1F2937; /* כהה מאוד, כמעט שחור */
+        }
+        /* אנימציית כניסה עדינה לאלמנטים */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-item {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0; /* נסתר בהתחלה */
+        }
+        .fade-in-item:nth-child(1) { animation-delay: 0.2s; }
+        .fade-in-item:nth-child(2) { animation-delay: 0.4s; }
+        .fade-in-item:nth-child(3) { animation-delay: 0.6s; }
+        .fade-in-item:nth-child(4) { animation-delay: 0.8s; }
+
+        /* סגנונות ספציפיים לאקורדיון */
+        .accordion-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            border-radius: 1rem; /* פינות מעוגלות יותר */
+            margin-bottom: 0.75rem; /* רווח גדול יותר בין פריטים */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        /* צבעים ספציפיים לכל כותרת אקורדיון */
+        .accordion-header.color-1 {
+            background-color: #BFDBFE; /* Blue-200 */
+        }
+        .accordion-header.color-1:hover {
+            background-color: #93C5FD; /* Blue-300 */
+            transform: scale(1.01);
+        }
+        .accordion-header.color-2 {
+            background-color: #D1FAE5; /* Green-200 */
+        }
+        .accordion-header.color-2:hover {
+            background-color: #A7F3D0; /* Green-300 */
+            transform: scale(1.01);
+        }
+        .accordion-header.color-3 {
+            background-color: #FBCFE8; /* Pink-200 */
+        }
+        .accordion-header.color-3:hover {
+            background-color: #F9A8D4; /* Pink-300 */
+            transform: scale(1.01);
+        }
+        /* תוכן האקורדיון - מוסתר כברירת מחדל */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 1.5rem;
+            background-color: white;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem; /* רווח גדול יותר לאחר סגירה */
+        }
+        /* תוכן האקורדיון - פעיל (פתוח) */
+        .accordion-content.active {
+            max-height: 300px; /* גובה מקסימלי לתוכן - ניתן להתאמה */
+            padding-top: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+        /* אייקון חץ באקורדיון - אנימציית סיבוב */
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-icon.rotate {
+            transform: rotate(180deg);
+        }
+        /* טקסט עם גרדיאנט לכותרות */
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(45deg, #6366F1, #EC4899); /* אינדיגו וורוד עז */
+        }
+
+        /* סגנונות ספציפיים למשחקים */
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            background-color: #fff;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* סגנונות למשחק איקס עיגול */
+        #ticTacToeBoard {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+            background-color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+        .tic-tac-toe-cell {
+            width: 100px;
+            height: 100px;
+            background-color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .tic-tac-toe-cell:hover {
+            background-color: #ddd;
+        }
+        .tic-tac-toe-cell.X {
+            color: #EF4444; /* Red */
+        }
+        .tic-tac-toe-cell.O {
+            color: #3B82F6; /* Blue */
+        }
+        #ticTacToeStatus {
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4B5563;
+        }
+
+        /* סגנונות למשחק הזיכרון */
+        #memoryGameGrid {
+            display: grid;
+            grid-template-columns: repeat(4, 80px); /* Adjust columns based on screen size */
+            grid-template-rows: repeat(4, 80px);
+            gap: 10px;
+            padding: 1rem;
+            background-color: #f0f4f8;
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+        }
+        .memory-card {
+            width: 80px;
+            height: 80px;
+            background-color: #6366F1; /* Indigo */
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: transform 0.5s ease, background-color 0.3s ease;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        .memory-card.matched {
+            background-color: #A7F3D0; /* Light Green */
+            cursor: default;
+        }
+        .memory-card .card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+        }
+        .memory-card .card-front, .memory-card .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+        .memory-card .card-front {
+            background-color: #6366F1; /* Indigo */
+            color: white;
+        }
+        .memory-card .card-back {
+            background-color: white;
+            color: #333;
+            transform: rotateY(180deg);
+        }
+
+        /* התאמות רספונסיביות למשחקים */
+        @media (max-width: 768px) {
+            #ticTacToeBoard {
+                grid-template-columns: repeat(3, 80px);
+                grid-template-rows: repeat(3, 80px);
+            }
+            .tic-tac-toe-cell {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
+            }
+            #memoryGameGrid {
+                grid-template-columns: repeat(4, 70px);
+                grid-template-rows: repeat(4, 70px);
+            }
+            .memory-card {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+        }
+        @media (max-width: 480px) {
+            #ticTacToeBoard {
+                grid-template-columns: repeat(3, 70px);
+                grid-template-rows: repeat(3, 70px);
+            }
+            .tic-tac-toe-cell {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            #memoryGameGrid {
+                grid-template-columns: repeat(4, 60px);
+                grid-template-rows: repeat(4, 60px);
+            }
+            .memory-card {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Splash Screen Styles */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6366F1, #EC4899); /* רקע גרדיאנט תואם ל-header */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* ודא שהוא מעל כל שאר התוכן */
+            opacity: 1;
+            transition: opacity 1s ease-out; /* אנימציית היעלמות */
+        }
+
+        #splash-logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform: translateY(100vh); /* מתחיל מחוץ למסך מלמטה */
+            opacity: 0;
+            animation: slideUpAndFadeIn 1.5s ease-out forwards; /* אנימציית כניסה */
+            animation-delay: 0.5s; /* עיכוב לפני תחילת האנימציה */
+        }
+
+        #splash-screen img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        #splash-screen h1 {
+            font-size: 3.5rem; /* גודל גדול יותר לכותרת */
+            color: white;
+            font-weight: 800;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* אנימציה לעלייה והופעה */
+        @keyframes slideUpAndFadeIn {
+            from {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Hidden class for main content */
+        .hidden-content {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-right">
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div id="splash-logo-container">
+            <!-- הלוגו נטען מקובץ logo.jpeg באותה תיקייה -->
+            <img src="logo.jpeg" alt="לוגו נלחמים בחרם">
+            <h1>נלחמים בחרם</h1>
+        </div>
+    </div>
+
+    <!-- Main Content (initially hidden) -->
+    <div id="main-content" class="hidden-content">
+        <!-- כותרת עליונה (Header) -->
+        <header class="header-bg text-white py-6 shadow-lg">
+            <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <!-- הלוגו נטען מקובץ logo.jpeg באותה תיקייה -->
+                    <img src="logo.jpeg" alt="לוגו נלחמים בחרם" class="h-24 w-24 rounded-full shadow-md mr-4">
+                    <h1 class="text-4xl font-extrabold tracking-tight">נלחמים בחרם</h1>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6 space-x-reverse text-lg font-medium">
+                        <li><a href="#about" class="hover:text-gray-200 transition duration-300">אודותינו</a></li>
+                        <li><a href="#mission" class="hover:text-gray-200 transition duration-300">החזון שלנו</a></li>
+                        <li><a href="#games" class="hover:text-gray-200 transition duration-300">משחקים</a></li>
+                        <li><a href="#contact" class="hover:text-gray-200 transition duration-300">צור קשר</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- קטע גיבור (Hero Section) -->
+        <section class="relative bg-white py-24 text-center overflow-hidden">
+            <div class="container mx-auto px-6 relative z-10">
+                <h2 class="text-6xl font-extrabold text-gray-900 mb-6 fade-in-item">
+                    <span class="block gradient-text">יחד, נבנה עתיד ללא חרם.</span>
+                </h2>
+                <p class="text-xl text-gray-700 mb-12 max-w-4xl mx-auto leading-relaxed fade-in-item" style="animation-delay: 0.4s;">
+                    אנו קהילה של בני נוער שמאמינים בכוחה של אחדות. אנחנו כאן כדי להעניק תמיכה, להעלות מודעות ולפעול למען סביבה בטוחה ומכילה לכל אחד ואחת.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 sm:space-x-reverse fade-in-item" style="animation-delay: 0.6s;">
+                    <a href="#contact" class="btn-primary inline-block text-xl font-semibold shadow-lg hover:shadow-xl">
+                        קבלו עזרה עכשיו
+                    </a>
+                    <a href="https://discord.gg/KTWZqqGU2g" target="_blank" rel="noopener noreferrer" class="btn-secondary inline-block text-xl font-semibold shadow-lg hover:shadow-xl">
+                        <i class="fab fa-discord ml-2"></i> הצטרפו לשרת הדיסקורד שלנו
+                    </a>
+                </div>
+            </div>
+            <!-- אלמנטים ויזואליים לרקע - נקודות מודרניות -->
+            <div class="absolute inset-0 opacity-10">
+                <svg class="w-full h-full" fill="none" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
+                    <defs>
+                        <pattern id="pattern-dots" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
+                            <circle cx="7.5" cy="7.5" r="1.5" fill="#E2E8F0"></circle>
+                        </pattern>
+                    </defs>
+                    <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-dots)"></rect>
+                </svg>
+            </div>
+        </section>
+
+        <!-- קטע אודותינו (About Us) -->
+        <section id="about" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">אודותינו</h3>
+                <div class="flex flex-col md:flex-row items-center md:space-x-16 md:space-x-reverse">
+                    <div class="md:w-1/2 mb-8 md:mb-0">
+                        <img src="https://placehold.co/600x400/D1E7DD/000000?text=Community" alt="קהילה תומכת" class="rounded-3xl shadow-2xl">
+                    </div>
+                    <div class="md:w-1/2 text-lg leading-relaxed text-gray-700">
+                        <p class="mb-6">
+                            "נלחמים בחרם" הוקם מתוך כאב והבנה עמוקה של ההשפעות ההרסניות של חרם על ילדים ובני נוער. אנו קבוצה של בני נוער, הורים ואנשי קהילה, שמאמינים בכוחה של קהילה מאוחדת ליצור שינוי אמיתי.
+                        </p>
+                        <p>
+                            המטרה שלנו היא לספק כלים, ידע ותמיכה לילדים שנפגעו מחרם, להורים המתמודדים עם המצב, ולכל מי שמעוניין למנוע תופעות אלו ולטפח סביבה בטוחה ומכילה. אנו פועלים להעלאת מודעות, קידום דיאלוג וחינוך לסובלנות וקבלה.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- קטע החזון שלנו (Our Mission) - כעת עם אקורדיון -->
+        <section id="mission" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">החזון שלנו</h3>
+                <div class="max-w-3xl mx-auto">
+                    <!-- פריט חזון 1: העלאת מודעות -->
+                    <div class="card mb-4">
+                        <div class="accordion-header color-1" data-accordion="1">
+                            <h4 class="text-2xl font-semibold text-gray-800">העלאת מודעות</h4>
+                            <i class="fas fa-chevron-down accordion-icon text-gray-600"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p class="text-gray-600">
+                                אנו שואפים לחשוף את ההשפעות ההרסניות של חרם ולעודד שיח פתוח בנושא, בקהילה ובתקשורת. באמצעות קמפיינים, סיפורים אישיים ופעילויות הסברה, נביא את הנושא לקדמת הבמה.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- פריט חזון 2: מתן תמיכה -->
+                    <div class="card mb-4">
+                        <div class="accordion-header color-2" data-accordion="2">
+                            <h4 class="text-2xl font-semibold text-gray-800">מתן תמיכה</h4>
+                            <i class="fas fa-chevron-down accordion-icon text-gray-600"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p class="text-gray-600">
+                                אנו מחויבים לספק עזרה רגשית ומעשית לילדים נפגעים ולהוריהם. אנו בונים רשת תמיכה שתכלול אוזן קשבת, הכוונה לגורמי מקצוע רלוונטיים וליווי בתהליך ההתמודדות.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- פריט חזון 3: חינוך ומניעה -->
+                    <div class="card mb-4">
+                        <div class="accordion-header color-3" data-accordion="3">
+                            <h4 class="text-2xl font-semibold text-gray-800">חינוך ומניעה</h4>
+                            <i class="fas fa-chevron-down accordion-icon text-gray-600"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <p class="text-gray-600">
+                                אנו פועלים להטמיע ערכים של סובלנות, קבלה וחמלה בקרב בני נוער וילדים. נפתח תכנים חינוכיים שיעזרו לזהות מצבי חרם ולפעול למניעתם, ונעודד סביבות חברתיות חיוביות ובטוחות.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- קטע משחקים (Games) -->
+        <section id="games" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">בואו נשחק!</h3>
+
+                <!-- משחק איקס עיגול (Tic-Tac-Toe) -->
+                <div class="game-container mb-16">
+                    <h4 class="text-3xl font-bold text-gray-800 mb-6">איקס עיגול (נגד המחשב)</h4>
+                    <div id="ticTacToeBoard">
+                        <div class="tic-tac-toe-cell" data-cell-index="0"></div>
+                        <div class="tic-tac-toe-cell" data-cell-index="1"></div>
+                        <div class="tic-tac-toe-cell" data-cell-index="2"></div>
+                        <div class="tic-tac-toe-cell" data-cell-index="3"></div>
+                        <div class="tic-tac-toe-cell" data-cell-index="4"></div>
+                        <div class="tic-tac-toe-cell" data-cell-index="5"></div>
+                        <div class="tic-tac-toe-cell" data-cell-index="6"></div>
+                        <div class="tic-tac-toe-cell" data-cell-index="7"></div>
+                        <div class="tic-tac-toe-cell" data-cell-index="8"></div>
+                    </div>
+                    <p id="ticTacToeStatus" class="mt-4 text-xl"></p>
+                    <button onclick="resetTicTacToe()" class="btn-primary mt-6">
+                        <i class="fas fa-redo ml-2"></i> התחל מחדש
+                    </button>
+                </div>
+
+                <!-- משחק הזיכרון (Memory Game) -->
+                <div class="game-container mb-16">
+                    <h4 class="text-3xl font-bold text-gray-800 mb-6">משחק הזיכרון עם אימוג'ים</h4>
+                    <div id="memoryGameGrid">
+                        <!-- הקלפים ייווצרו על ידי JavaScript -->
+                    </div>
+                    <p id="memoryGameStatus" class="mt-4 text-xl">זוגות שנמצאו: 0</p>
+                    <button onclick="resetMemoryGame()" class="btn-primary mt-6">
+                        <i class="fas fa-redo ml-2"></i> התחל מחדש
+                    </button>
+                </div>
+
+                <!-- משחק טאקי (Taki) - הסבר -->
+                <div class="game-container">
+                    <h4 class="text-3xl font-bold text-gray-800 mb-6">טאקי</h4>
+                    <p class="text-lg text-gray-700 text-center">
+                        משחק טאקי הוא משחק קלפים מורכב הדורש פיתוח נרחב.
+                        כרגע הוא אינו זמין באתר, אך אנו שוקלים להוסיף אותו בעתיד!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- קטע צור קשר (Contact Us) -->
+        <section id="contact" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">צרו איתנו קשר</h3>
+                <div class="max-w-xl mx-auto card p-10">
+                    <form>
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 text-lg font-semibold mb-2">שם מלא:</label>
+                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="הכנס/י את שמך" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 text-lg font-semibold mb-2">דוא"ל:</label>
+                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="הכנס/י את כתובת הדואל שלך" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 text-lg font-semibold mb-2">הודעה:</label>
+                            <textarea id="message" name="message" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="כתוב/כתבי את הודעתך כאן..." required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn-primary text-xl font-semibold shadow-lg hover:shadow-xl">
+                                שלח/י הודעה
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- כותרת תחתונה (Footer) -->
+        <footer class="footer-bg text-white py-10">
+            <div class="container mx-auto px-6 text-center">
+                <p class="text-lg mb-4">&copy; 2025 נלחמים בחרם. כל הזכויות שמורות.</p>
+                <div class="flex justify-center space-x-6 space-x-reverse">
+                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">מדיניות פרטיות</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">תנאי שימוש</a>
+                </div>
+            </div>
+        </footer>
+    </div> <!-- End of main-content -->
+
+    <script>
+        // JavaScript for the accordion functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling; // The content div is the next sibling
+                    const icon = this.querySelector('.accordion-icon');
+
+                    // Toggle the 'active' class on the content to expand/collapse
+                    content.classList.toggle('active');
+                    // Toggle the 'rotate' class on the icon to change arrow direction
+                    icon.classList.toggle('rotate');
+
+                    // If the content is active, set max-height to its scrollHeight
+                    // Otherwise, set it to 0
+                    if (content.classList.contains('active')) {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    } else {
+                        content.style.maxHeight = "0";
+                    }
+                });
+            });
+
+            // Initialize games on page load
+            initTicTacToe();
+            initMemoryGame();
+
+            // Splash Screen Logic
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+
+            // Hide main content initially (CSS handles this with .hidden-content)
+            // Show splash screen
+            splashScreen.style.opacity = 1;
+
+            // After animation, fade out splash screen and show main content
+            setTimeout(() => {
+                splashScreen.style.opacity = 0; // Start fade out
+                // After fade out, remove splash screen and show main content
+                setTimeout(() => {
+                    splashScreen.style.display = 'none';
+                    mainContent.classList.remove('hidden-content');
+                }, 1000); // Matches opacity transition duration
+            }, 3000); // Total time splash screen is visible (animation + delay + fade out)
+        });
+
+
+        /* --- Tic-Tac-Toe Game Logic --- */
+        const ticTacToeBoard = document.getElementById('ticTacToeBoard');
+        const ticTacToeStatus = document.getElementById('ticTacToeStatus');
+        let ticTacToeGameActive = true;
+        let ticTacToeCurrentPlayer = 'X'; // Player is X, AI is O
+        let ticTacToeGameState = ["", "", "", "", "", "", "", "", ""]; // Represents the board state
+
+        const ticTacToeWinningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6]             // Diagonals
+        ];
+
+        function initTicTacToe() {
+            ticTacToeBoard.innerHTML = ''; // Clear existing cells
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('tic-tac-toe-cell');
+                cell.setAttribute('data-cell-index', i);
+                cell.addEventListener('click', handleTicTacToeCellClick);
+                ticTacToeBoard.appendChild(cell);
+            }
+            resetTicTacToe();
+        }
+
+        function handleTicTacToeCellClick(clickedCellEvent) {
+            const clickedCell = clickedCellEvent.target;
+            const clickedCellIndex = parseInt(clickedCell.getAttribute('data-cell-index'));
+
+            if (ticTacToeGameState[clickedCellIndex] !== "" || !ticTacToeGameActive) {
+                return;
+            }
+
+            // Player's move
+            ticTacToeHandlePlayerMove(clickedCell, clickedCellIndex);
+        }
+
+        function ticTacToeHandlePlayerMove(clickedCell, clickedCellIndex) {
+            ticTacToeGameState[clickedCellIndex] = ticTacToeCurrentPlayer;
+            clickedCell.innerHTML = ticTacToeCurrentPlayer;
+            clickedCell.classList.add(ticTacToeCurrentPlayer);
+
+            const result = ticTacToeCheckResult();
+            if (result) {
+                ticTacToeStatus.textContent = result;
+                ticTacToeGameActive = false;
+                return;
+            }
+
+            // Switch to AI's turn
+            ticTacToeCurrentPlayer = 'O';
+            ticTacToeStatus.textContent = `תור המחשב (O)`;
+            setTimeout(ticTacToeAiMove, 700); // Delay AI move for better UX
+        }
+
+        function ticTacToeAiMove() {
+            if (!ticTacToeGameActive) return;
+
+            let availableCells = [];
+            for (let i = 0; i < ticTacToeGameState.length; i++) {
+                if (ticTacToeGameState[i] === "") {
+                    availableCells.push(i);
+                }
+            }
+
+            if (availableCells.length > 0) {
+                // Simple AI: pick a random available cell
+                const randomIndex = Math.floor(Math.random() * availableCells.length);
+                const chosenCellIndex = availableCells[randomIndex];
+                const chosenCell = ticTacToeBoard.children[chosenCellIndex];
+
+                ticTacToeGameState[chosenCellIndex] = ticTacToeCurrentPlayer;
+                chosenCell.innerHTML = ticTacToeCurrentPlayer;
+                chosenCell.classList.add(ticTacToeCurrentPlayer);
+
+                const result = ticTacToeCheckResult();
+                if (result) {
+                    ticTacToeStatus.textContent = result;
+                    ticTacToeGameActive = false;
+                    return;
+                }
+
+                // Switch back to player's turn
+                ticTacToeCurrentPlayer = 'X';
+                ticTacToeStatus.textContent = `תורך (X)`;
+            } else {
+                // Should be caught by checkResult as a draw, but good fallback
+                ticTacToeStatus.textContent = 'תיקו!';
+                ticTacToeGameActive = false;
+            }
+        }
+
+        function ticTacToeCheckResult() {
+            let roundWon = false;
+            for (let i = 0; i < ticTacToeWinningConditions.length; i++) {
+                const winCondition = ticTacToeWinningConditions[i];
+                let a = ticTacToeGameState[winCondition[0]];
+                let b = ticTacToeGameState[winCondition[1]];
+                let c = ticTacToeGameState[winCondition[2]];
+
+                if (a === '' || b === '' || c === '') {
+                    continue;
+                }
+                if (a === b && b === c) {
+                    roundWon = true;
+                    break;
+                }
+            }
+
+            if (roundWon) {
+                return `השחקן ${ticTacToeCurrentPlayer} ניצח!`;
+            }
+
+            let roundDraw = !ticTacToeGameState.includes("");
+            if (roundDraw) {
+                return 'תיקו!';
+            }
+
+            return null; // Game is still ongoing
+        }
+
+        function resetTicTacToe() {
+            ticTacToeGameActive = true;
+            ticTacToeCurrentPlayer = 'X';
+            ticTacToeGameState = ["", "", "", "", "", "", "", "", ""];
+            ticTacToeStatus.textContent = `תורך (X)`;
+            document.querySelectorAll('.tic-tac-toe-cell').forEach(cell => {
+                cell.innerHTML = "";
+                cell.classList.remove('X', 'O');
+            });
+        }
+
+
+        /* --- Memory Game Logic --- */
+        const memoryGameGrid = document.getElementById('memoryGameGrid');
+        const memoryGameStatus = document.getElementById('memoryGameStatus');
+        const emojis = ['😊', '😎', '🤩', '🥳', '👍', '💖', '🚀', '🌟']; // 8 pairs
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchesFound = 0;
+        let awaitingEndOfMove = false; // To prevent rapid clicks
+
+        function initMemoryGame() {
+            memoryGameGrid.innerHTML = ''; // Clear existing cards
+            matchesFound = 0;
+            memoryGameStatus.textContent = `זוגות שנמצאו: ${matchesFound}`;
+
+            // Duplicate emojis to create pairs and shuffle
+            let gameEmojis = [...emojis, ...emojis];
+            gameEmojis.sort(() => Math.random() - 0.5); // Shuffle
+
+            memoryCards = gameEmojis.map((emoji, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('memory-card');
+                cardElement.setAttribute('data-card-id', index);
+                cardElement.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front"></div>
+                        <div class="card-back">${emoji}</div>
+                    </div>
+                `;
+                cardElement.addEventListener('click', () => flipMemoryCard(cardElement, emoji, index));
+                memoryGameGrid.appendChild(cardElement);
+
+                return {
+                    element: cardElement,
+                    emoji: emoji,
+                    isFlipped: false,
+                    isMatched: false
+                };
+            });
+        }
+
+        function flipMemoryCard(cardElement, emoji, index) {
+            const card = memoryCards[index];
+
+            // Prevent flipping already matched/flipped cards or during awaitingEndOfMove
+            if (awaitingEndOfMove || card.isFlipped || card.isMatched) {
+                return;
+            }
+
+            card.isFlipped = true;
+            cardElement.classList.add('flipped');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                awaitingEndOfMove = true;
+                setTimeout(checkForMemoryMatch, 1000); // Check for match after a delay
+            }
+        }
+
+        function checkForMemoryMatch() {
+            const [card1, card2] = flippedCards;
+
+            if (card1.emoji === card2.emoji) {
+                // Match found!
+                card1.isMatched = true;
+                card2.isMatched = true;
+                card1.element.classList.add('matched');
+                card2.element.classList.add('matched');
+                matchesFound++;
+                memoryGameStatus.textContent = `זוגות שנמצאו: ${matchesFound}`;
+
+                if (matchesFound === emojis.length) {
+                    memoryGameStatus.textContent = `כל הכבוד! מצאת את כל הזוגות! 🎉`;
+                }
+            } else {
+                // No match, flip back
+                card1.isFlipped = false;
+                card2.isFlipped = false;
+                card1.element.classList.remove('flipped');
+                card2.element.classList.remove('flipped');
+            }
+
+            flippedCards = []; // Clear flipped cards
+            awaitingEndOfMove = false;
+        }
+
+        function resetMemoryGame() {
+            flippedCards = [];
+            awaitingEndOfMove = false;
+            initMemoryGame(); // Re-initialize to shuffle and reset
+        }
+    </script>
+</body>
+</html>
