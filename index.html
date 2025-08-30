@@ -6,7 +6,6 @@
     <title>נלחמים בחרם - יחד ננצח</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons (e.g., arrow for accordion, Discord) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* הגדרות בסיסיות לגוף המסמך */
@@ -357,22 +356,17 @@
     </style>
 </head>
 <body class="text-right">
-    <!-- Splash Screen -->
     <div id="splash-screen">
         <div id="splash-logo-container">
-            <!-- הלוגו נטען מקובץ IMG_2773.webp באותה תיקייה -->
             <img src="IMG_2773.webp" alt="לוגו נלחמים בחרם">
             <h1>נלחמים בחרם</h1>
         </div>
     </div>
 
-    <!-- Main Content (initially hidden) -->
     <div id="main-content" class="hidden-content">
-        <!-- כותרת עליונה (Header) -->
         <header class="header-bg text-white py-6 shadow-lg">
             <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6">
                 <div class="flex items-center mb-4 md:mb-0">
-                    <!-- הלוגו נטען מקובץ IMG_2773.webp באותה תיקייה -->
                     <img src="IMG_2773.webp" alt="לוגו נלחמים בחרם" class="h-24 w-24 rounded-full shadow-md mr-4">
                     <h1 class="text-4xl font-extrabold tracking-tight">נלחמים בחרם</h1>
                 </div>
@@ -381,13 +375,11 @@
                         <li><a href="#about" class="hover:text-gray-200 transition duration-300">אודותינו</a></li>
                         <li><a href="#mission" class="hover:text-gray-200 transition duration-300">החזון שלנו</a></li>
                         <li><a href="#games" class="hover:text-gray-200 transition duration-300">משחקים</a></li>
-                        <li><a href="#contact" class="hover:text-gray-200 transition duration-300">צור קשר</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
 
-        <!-- קטע גיבור (Hero Section) -->
         <section class="relative bg-white py-24 text-center overflow-hidden">
             <div class="container mx-auto px-6 relative z-10">
                 <h2 class="text-6xl font-extrabold text-gray-900 mb-6 fade-in-item">
@@ -397,15 +389,11 @@
                     אנו קהילה של בני נוער שמאמינים בכוחה של אחדות. אנחנו כאן כדי להעניק תמיכה, להעלות מודעות ולפעול למען סביבה בטוחה ומכילה לכל אחד ואחת.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 sm:space-x-reverse fade-in-item" style="animation-delay: 0.6s;">
-                    <a href="#contact" class="btn-primary inline-block text-xl font-semibold shadow-lg hover:shadow-xl">
-                        קבלו עזרה עכשיו
-                    </a>
                     <a href="https://discord.gg/KTWZqqGU2g" target="_blank" rel="noopener noreferrer" class="btn-secondary inline-block text-xl font-semibold shadow-lg hover:shadow-xl">
                         <i class="fab fa-discord ml-2"></i> הצטרפו לשרת הדיסקורד שלנו
                     </a>
                 </div>
             </div>
-            <!-- אלמנטים ויזואליים לרקע - נקודות מודרניות -->
             <div class="absolute inset-0 opacity-10">
                 <svg class="w-full h-full" fill="none" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
                     <defs>
@@ -418,7 +406,6 @@
             </div>
         </section>
 
-        <!-- קטע אודותינו (About Us) -->
         <section id="about" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
                 <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">אודותינו</h3>
@@ -438,12 +425,10 @@
             </div>
         </section>
 
-        <!-- קטע החזון שלנו (Our Mission) - כעת עם אקורדיון -->
         <section id="mission" class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">החזון שלנו</h3>
                 <div class="max-w-3xl mx-auto">
-                    <!-- פריט חזון 1: העלאת מודעות -->
                     <div class="card mb-4">
                         <div class="accordion-header color-1" data-accordion="1">
                             <h4 class="text-2xl font-semibold text-gray-800">העלאת מודעות</h4>
@@ -456,7 +441,6 @@
                         </div>
                     </div>
 
-                    <!-- פריט חזון 2: מתן תמיכה -->
                     <div class="card mb-4">
                         <div class="accordion-header color-2" data-accordion="2">
                             <h4 class="text-2xl font-semibold text-gray-800">מתן תמיכה</h4>
@@ -469,7 +453,6 @@
                         </div>
                     </div>
 
-                    <!-- פריט חזון 3: חינוך ומניעה -->
                     <div class="card mb-4">
                         <div class="accordion-header color-3" data-accordion="3">
                             <h4 class="text-2xl font-semibold text-gray-800">חינוך ומניעה</h4>
@@ -485,12 +468,10 @@
             </div>
         </section>
 
-        <!-- קטע משחקים (Games) -->
         <section id="games" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
                 <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">בואו נשחק!</h3>
 
-                <!-- משחק איקס עיגול (Tic-Tac-Toe) -->
                 <div class="game-container mb-16">
                     <h4 class="text-3xl font-bold text-gray-800 mb-6">איקס עיגול (נגד המחשב)</h4>
                     <div id="ticTacToeBoard">
@@ -510,58 +491,18 @@
                     </button>
                 </div>
 
-                <!-- משחק הזיכרון (Memory Game) -->
-                <div class="game-container mb-16">
+                <div class="game-container">
                     <h4 class="text-3xl font-bold text-gray-800 mb-6">משחק הזיכרון עם אימוג'ים</h4>
                     <div id="memoryGameGrid">
-                        <!-- הקלפים ייווצרו על ידי JavaScript -->
-                    </div>
+                        </div>
                     <p id="memoryGameStatus" class="mt-4 text-xl">זוגות שנמצאו: 0</p>
                     <button onclick="resetMemoryGame()" class="btn-primary mt-6">
                         <i class="fas fa-redo ml-2"></i> התחל מחדש
                     </button>
                 </div>
-
-                <!-- משחק טאקי (Taki) - הסבר -->
-                <div class="game-container">
-                    <h4 class="text-3xl font-bold text-gray-800 mb-6">טאקי</h4>
-                    <p class="text-lg text-gray-700 text-center">
-                        משחק טאקי הוא משחק קלפים מורכב הדורש פיתוח נרחב.
-                        כרגע הוא אינו זמין באתר, אך אנו שוקלים להוסיף אותו בעתיד!
-                    </p>
-                </div>
             </div>
         </section>
 
-        <!-- קטע צור קשר (Contact Us) -->
-        <section id="contact" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h3 class="text-4xl font-bold text-center text-gray-800 mb-12">צרו איתנו קשר</h3>
-                <div class="max-w-xl mx-auto card p-10">
-                    <form>
-                        <div class="mb-6">
-                            <label for="name" class="block text-gray-700 text-lg font-semibold mb-2">שם מלא:</label>
-                            <input type="text" id="name" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="הכנס/י את שמך" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="email" class="block text-gray-700 text-lg font-semibold mb-2">דוא"ל:</label>
-                            <input type="email" id="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="הכנס/י את כתובת הדואל שלך" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="message" class="block text-gray-700 text-lg font-semibold mb-2">הודעה:</label>
-                            <textarea id="message" name="message" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="כתוב/כתבי את הודעתך כאן..." required></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn-primary text-xl font-semibold shadow-lg hover:shadow-xl">
-                                שלח/י הודעה
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- כותרת תחתונה (Footer) -->
         <footer class="footer-bg text-white py-10">
             <div class="container mx-auto px-6 text-center">
                 <p class="text-lg mb-4">&copy; 2025 נלחמים בחרם. כל הזכויות שמורות.</p>
@@ -571,9 +512,7 @@
                 </div>
             </div>
         </footer>
-    </div> <!-- End of main-content -->
-
-    <script>
+    </div> <script>
         // JavaScript for the accordion functionality
         document.addEventListener('DOMContentLoaded', function() {
             const accordionHeaders = document.querySelectorAll('.accordion-header');
@@ -632,7 +571,7 @@
         const ticTacToeWinningConditions = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
             [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-            [0, 4, 8], [2, 4, 6]             // Diagonals
+            [0, 4, 8], [2, 4, 6]            // Diagonals
         ];
 
         function initTicTacToe() {
@@ -727,20 +666,13 @@
                 }
                 if (a === b && b === c) {
                     roundWon = true;
-                    break;
+                    return `השחקן ${a} ניצח! 🎉`;
                 }
             }
-
-            if (roundWon) {
-                return `השחקן ${ticTacToeCurrentPlayer} ניצח!`;
+            if (!ticTacToeGameState.includes("")) {
+                return 'תיקו! 🤝';
             }
-
-            let roundDraw = !ticTacToeGameState.includes("");
-            if (roundDraw) {
-                return 'תיקו!';
-            }
-
-            return null; // Game is still ongoing
+            return null;
         }
 
         function resetTicTacToe() {
@@ -754,96 +686,80 @@
             });
         }
 
-
         /* --- Memory Game Logic --- */
         const memoryGameGrid = document.getElementById('memoryGameGrid');
         const memoryGameStatus = document.getElementById('memoryGameStatus');
-        const emojis = ['😊', '😎', '🤩', '🥳', '👍', '💖', '🚀', '🌟']; // 8 pairs
-        let memoryCards = [];
-        let flippedCards = [];
-        let matchesFound = 0;
-        let awaitingEndOfMove = false; // To prevent rapid clicks
+        const memoryGameEmojis = ['😂', '❤️', '😎', '🎉', '🌟', '🦄', '🚀', '🌺'];
+        let memoryGameCards = [];
+        let memoryGameFlippedCards = [];
+        let memoryGameMatchedPairs = 0;
 
         function initMemoryGame() {
-            memoryGameGrid.innerHTML = ''; // Clear existing cards
-            matchesFound = 0;
-            memoryGameStatus.textContent = `זוגות שנמצאו: ${matchesFound}`;
+            memoryGameGrid.innerHTML = '';
+            memoryGameCards = shuffleArray([...memoryGameEmojis, ...memoryGameEmojis]);
+            memoryGameMatchedPairs = 0;
+            memoryGameStatus.textContent = `זוגות שנמצאו: 0`;
+            memoryGameFlippedCards = [];
 
-            // Duplicate emojis to create pairs and shuffle
-            let gameEmojis = [...emojis, ...emojis];
-            gameEmojis.sort(() => Math.random() - 0.5); // Shuffle
-
-            memoryCards = gameEmojis.map((emoji, index) => {
-                const cardElement = document.createElement('div');
-                cardElement.classList.add('memory-card');
-                cardElement.setAttribute('data-card-id', index);
-                cardElement.innerHTML = `
+            memoryGameCards.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.classList.add('memory-card');
+                card.innerHTML = `
                     <div class="card-inner">
-                        <div class="card-front"></div>
+                        <div class="card-front">?</div>
                         <div class="card-back">${emoji}</div>
                     </div>
                 `;
-                cardElement.addEventListener('click', () => flipMemoryCard(cardElement, emoji, index));
-                memoryGameGrid.appendChild(cardElement);
-
-                return {
-                    element: cardElement,
-                    emoji: emoji,
-                    isFlipped: false,
-                    isMatched: false
-                };
+                card.addEventListener('click', () => flipCard(card, index));
+                memoryGameGrid.appendChild(card);
             });
         }
 
-        function flipMemoryCard(cardElement, emoji, index) {
-            const card = memoryCards[index];
-
-            // Prevent flipping already matched/flipped cards or during awaitingEndOfMove
-            if (awaitingEndOfMove || card.isFlipped || card.isMatched) {
+        function flipCard(card, index) {
+            if (memoryGameFlippedCards.length === 2 || card.classList.contains('flipped') || card.classList.contains('matched')) {
                 return;
             }
 
-            card.isFlipped = true;
-            cardElement.classList.add('flipped');
-            flippedCards.push(card);
+            card.classList.add('flipped');
+            memoryGameFlippedCards.push({ card, index, emoji: memoryGameCards[index] });
 
-            if (flippedCards.length === 2) {
-                awaitingEndOfMove = true;
-                setTimeout(checkForMemoryMatch, 1000); // Check for match after a delay
+            if (memoryGameFlippedCards.length === 2) {
+                setTimeout(checkForMatch, 1000);
             }
         }
 
-        function checkForMemoryMatch() {
-            const [card1, card2] = flippedCards;
+        function checkForMatch() {
+            const [card1, card2] = memoryGameFlippedCards;
 
             if (card1.emoji === card2.emoji) {
-                // Match found!
-                card1.isMatched = true;
-                card2.isMatched = true;
-                card1.element.classList.add('matched');
-                card2.element.classList.add('matched');
-                matchesFound++;
-                memoryGameStatus.textContent = `זוגות שנמצאו: ${matchesFound}`;
+                // It's a match!
+                card1.card.classList.add('matched');
+                card2.card.classList.add('matched');
+                memoryGameMatchedPairs++;
+                memoryGameStatus.textContent = `זוגות שנמצאו: ${memoryGameMatchedPairs}`;
+                memoryGameFlippedCards = [];
 
-                if (matchesFound === emojis.length) {
-                    memoryGameStatus.textContent = `כל הכבוד! מצאת את כל הזוגות! 🎉`;
+                if (memoryGameMatchedPairs === memoryGameEmojis.length) {
+                    memoryGameStatus.textContent = `מזל טוב! ניצחת! 🎉`;
                 }
             } else {
-                // No match, flip back
-                card1.isFlipped = false;
-                card2.isFlipped = false;
-                card1.element.classList.remove('flipped');
-                card2.element.classList.remove('flipped');
+                // Not a match, flip back
+                card1.card.classList.remove('flipped');
+                card2.card.classList.remove('flipped');
+                memoryGameFlippedCards = [];
             }
-
-            flippedCards = []; // Clear flipped cards
-            awaitingEndOfMove = false;
         }
 
         function resetMemoryGame() {
-            flippedCards = [];
-            awaitingEndOfMove = false;
-            initMemoryGame(); // Re-initialize to shuffle and reset
+            initMemoryGame();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
         }
     </script>
 </body>
