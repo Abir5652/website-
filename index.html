@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShieldX | Terms & Privacy</title>
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --container-bg: #ffffff;
+            --primary-blue: #0056b3;
+            --accent-light-blue: #00a8e8;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            --item-bg: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 60px 20px;
+            line-height: 1.7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 850px;
+        }
+
+        .container {
+            background-color: var(--container-bg);
+            padding: 50px 70px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .logo {
+            max-width: 160px;
+            height: auto;
+            margin-bottom: 25px;
+            transition: transform 0.4s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            color: var(--primary-blue);
+            font-size: 2.8em;
+            margin: 0;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.15em;
+            margin: 15px 0 35px 0;
+        }
+
+        .discord-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 1.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 20px rgba(0, 86, 179, 0.15);
+        }
+
+        .discord-button:hover {
+            background-color: var(--accent-light-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0, 168, 232, 0.25);
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            color: var(--primary-blue);
+            font-size: 1.9em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            font-weight: 800;
+        }
+
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 5px;
+            height: 30px;
+            background-color: var(--accent-light-blue);
+            margin-right: 18px;
+            border-radius: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: var(--item-bg);
+            margin-bottom: 15px;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #edf2f7;
+            transition: all 0.3s ease;
+        }
+
+        li:hover {
+            border-color: var(--accent-light-blue);
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+        }
+
+        li strong {
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.15em;
+            font-weight: 700;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.95em;
+            color: var(--text-muted);
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #f1f5f9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+            h1 {
+                font-size: 2.2em;
+            }
+            body {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="container">
+        <header>
+            <!-- Logo Section -->
+            <img src="Blue Pink Groovy Playful Coffee Shop Logo.png" alt="ShieldX Logo" class="logo" onerror="this.src='https://via.placeholder.com/150/0056b3/FFFFFF?text=ShieldX'">
+            <h1>ShieldX</h1>
+            <p>Your ultimate protection partner. Review our legal documentation regarding your server's security and data.</p>
+            <a href="https://discord.gg/s8D93585hE" class="discord-button" target="_blank">Join Our Support Community</a>
+        </header>
+
+        <section id="tos">
+            <h2>Terms of Service</h2>
+            <p>By inviting ShieldX or interacting with our services, you acknowledge and agree to the following terms:</p>
+            <ul>
+                <li>
+                    <strong>Safe Conduct</strong>
+                    You agree not to use ShieldX for any illegal activities, harassment, spam, or attempts to destabilize Discord's infrastructure.
+                </li>
+                <li>
+                    <strong>Liability & Risk Assessment</strong>
+                    The service is provided on an "as-is" and "as-available" basis. <strong>Adding ShieldX to your server is strictly your own choice and is done at your own risk.</strong> We do not take responsibility for any events, damages, or unintended consequences that occur within your server. The final decision to authorize the bot's permissions rests solely with the server administrator.
+                </li>
+                <li>
+                    <strong>Service Termination</strong>
+                    We reserve the right to restrict or terminate access to ShieldX for any server or user found violating these terms or engaging in behavior harmful to the ShieldX community.
+                </li>
+            </ul>
+        </section>
+
+        <section id="privacy">
+            <h2>Privacy Policy</h2>
+            <p>We prioritize the security of your data. Here is how we manage your information:</p>
+            <ul>
+                <li>
+                    <strong>Data Collection</strong>
+                    We collect essential technical data including Server IDs, User IDs, and configuration settings required for automated moderation and security features.
+                </li>
+                <li>
+                    <strong>Data Utilization</strong>
+                    Collected data is strictly used for core functionalities such as anti-raid systems, logging, and custom server settings.
+                </li>
+                <li>
+                    <strong>Third-Party Sharing</strong>
+                    ShieldX does not sell, trade, or share your data with third parties. Your server's data remains within our secure, private infrastructure.
+                </li>
+                <li>
+                    <strong>Right to Erasure</strong>
+                    Server owners may request the complete deletion of their stored data at any time via our support server. Please note that kicking the bot may not automatically delete your custom configurations.
+                </li>
+            </ul>
+        </section>
+
+        <footer>
+            &copy; 2026 ShieldX Bot Team. All rights reserved.
+        </footer>
+    </div>
+</div>
+
+</body>
+</html>
