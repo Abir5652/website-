@@ -8,7 +8,7 @@
         :root {
             --primary-blue: #0056b3;
             --accent-light: #00d2ff;
-            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.65);
             --glass-border: rgba(255, 255, 255, 0.4);
             --text-dark: #1e293b;
             --text-muted: #64748b;
@@ -28,26 +28,28 @@
             min-height: 100vh;
         }
 
-        /* Ambient Background */
+        /* Ambient Background Overlay */
         .ambient-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 86, 179, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 86, 179, 0.1) 0%, transparent 40%),
                 radial-gradient(circle at 50% 50%, #ffffff 0%, #f0f4f8 100%);
         }
 
-        /* Overlay to close menu when clicking outside */
+        /* Overlay for closing menu */
         #menuOverlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.02);
             z-index: 850;
             display: none;
+            backdrop-filter: blur(2px);
         }
 
-        /* Navbar */
+        /* Navbar Styling */
         nav {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 85px;
@@ -62,43 +64,52 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
         }
 
+        /* Glowing Glass Logo */
         .nav-logo {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            padding: 8px 18px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 18px;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+            padding: 10px 22px;
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3), 0 5px 15px rgba(0,0,0,0.05);
         }
 
         .nav-logo span {
             color: var(--primary-blue);
             font-weight: 900;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            /* Glow removed as requested */
+            font-size: 1.5rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.2));
         }
 
         .nav-logo img {
-            height: 42px;
-            width: 42px;
-            border-radius: 10px;
+            height: 44px;
+            width: 44px;
+            border-radius: 12px;
             object-fit: cover;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .nav-logo:hover {
-            background: rgba(255, 255, 255, 0.7);
-            transform: translateY(-2px);
+            transform: scale(1.03) translateY(-2px);
+            background: rgba(255, 255, 255, 0.5);
+            border-color: var(--accent-light);
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.15);
         }
 
         /* Hamburger Button */
         .menu-btn {
             cursor: pointer;
-            width: 42px; height: 42px;
+            width: 45px; height: 45px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -106,35 +117,36 @@
             gap: 6px;
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
+            border-radius: 14px;
             transition: 0.3s;
             z-index: 1100;
         }
 
-        .menu-btn:hover { background: #fff; transform: scale(1.05); }
+        .menu-btn:hover { background: #fff; transform: scale(1.05); border-color: var(--accent-light); }
 
         .menu-btn span {
-            width: 24px; height: 3px;
+            width: 26px; height: 3px;
             background: var(--primary-blue);
-            border-radius: 2px;
+            border-radius: 3px;
+            transition: 0.3s;
         }
 
-        /* Small Sidebar */
+        /* Mini Sidebar */
         .sidebar {
             position: fixed;
-            top: 95px; right: -300px;
-            width: 250px;
+            top: 100px; right: -320px;
+            width: 260px;
             background: var(--glass-bg);
-            backdrop-filter: blur(25px);
+            backdrop-filter: blur(30px);
             border: 1px solid var(--glass-border);
-            border-radius: 25px;
-            padding: 25px 15px;
+            border-radius: 28px;
+            padding: 30px 15px;
             z-index: 900;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
         }
 
         .sidebar.active { right: 25px; }
@@ -143,75 +155,78 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 700;
-            padding: 12px 18px;
-            border-radius: 15px;
+            padding: 14px 20px;
+            border-radius: 18px;
             transition: 0.2s;
-            font-size: 1rem;
+            font-size: 1.05rem;
+            display: block;
         }
 
         .sidebar a:hover {
             background: rgba(255, 255, 255, 0.8);
             color: var(--primary-blue);
-            transform: translateX(-5px);
+            transform: translateX(-8px);
         }
 
-        /* Main Content */
-        .content-area { padding-top: 85px; min-height: 100vh; }
+        /* Main Content Container */
+        .content-area { padding-top: 85px; min-height: 100vh; position: relative; }
 
         .page {
             display: none;
             padding: 60px 20px;
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
-            animation: fadeIn 0.6s ease-out forwards;
+            animation: fadeIn 0.7s ease-out forwards;
         }
 
         .page.active { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Hero Styling */
+        /* Hero UI */
         .hero { text-align: center; padding: 40px 0; }
 
         .hero-logo {
-            width: 150px; height: 150px;
-            border-radius: 35px;
-            margin-bottom: 30px;
-            box-shadow: 0 15px 40px rgba(0, 86, 179, 0.1);
+            width: 160px; height: 160px;
+            border-radius: 40px;
+            margin-bottom: 35px;
+            box-shadow: 0 20px 60px rgba(0, 86, 179, 0.12);
             object-fit: cover;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.8rem);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 20px;
+            font-size: clamp(2.8rem, 9vw, 5rem);
+            font-weight: 950;
+            line-height: 1.05;
+            margin-bottom: 25px;
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
 
         .hero p {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             color: var(--text-muted);
-            max-width: 750px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
+            max-width: 780px;
+            margin: 0 auto 50px;
+            line-height: 1.7;
             font-weight: 500;
         }
 
-        .btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        /* Buttons */
+        .btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
 
         .btn {
-            padding: 18px 40px;
+            padding: 20px 45px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 800;
-            font-size: 1.1rem;
-            transition: 0.4s;
+            font-size: 1.2rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-flex;
             align-items: center;
         }
@@ -219,10 +234,10 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-light));
             color: white;
-            box-shadow: 0 10px 25px rgba(0, 86, 179, 0.2);
+            box-shadow: 0 12px 35px rgba(0, 86, 179, 0.25);
         }
 
-        .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0, 86, 179, 0.3); }
+        .btn-primary:hover { transform: translateY(-6px); box-shadow: 0 20px 45px rgba(0, 86, 179, 0.35); }
 
         .btn-secondary {
             background: white;
@@ -230,50 +245,50 @@
             border: 1px solid var(--glass-border);
         }
 
-        .btn-secondary:hover { transform: translateY(-4px); background: #f8fafc; }
+        .btn-secondary:hover { transform: translateY(-6px); background: #fcfdfe; box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
 
         /* Legal Content */
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(30px);
+            backdrop-filter: blur(35px);
             border: 1px solid var(--glass-border);
-            padding: 50px;
-            border-radius: 35px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
+            padding: 60px;
+            border-radius: 45px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.04);
         }
 
-        .glass-card h2 {
-            font-size: 2.8rem;
-            margin-bottom: 40px;
-            color: var(--primary-blue);
-        }
+        .glass-card h2 { font-size: 3rem; margin-bottom: 45px; color: var(--primary-blue); letter-spacing: -1px; }
 
         .legal-item {
-            margin-bottom: 25px;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 20px;
-            border-left: 5px solid var(--accent-light);
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.55);
+            border-radius: 25px;
+            border-left: 6px solid var(--accent-light);
+            transition: 0.3s;
         }
 
-        .legal-item h3 { color: var(--primary-blue); margin-bottom: 8px; font-size: 1.4rem; }
-        .legal-item p { color: var(--text-muted); line-height: 1.7; font-weight: 500; }
+        .legal-item:hover { background: rgba(255, 255, 255, 0.7); transform: translateX(5px); }
+        .legal-item h3 { color: var(--primary-blue); margin-bottom: 10px; font-size: 1.6rem; }
+        .legal-item p { color: var(--text-muted); line-height: 1.8; font-weight: 500; }
 
-        footer { text-align: center; padding: 60px 20px; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; }
+        footer { text-align: center; padding: 70px 20px; color: var(--text-muted); font-weight: 600; font-size: 1rem; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
-            .glass-card { padding: 35px 20px; }
+            .hero h1 { font-size: 3rem; }
+            .hero p { font-size: 1.2rem; }
+            .glass-card { padding: 40px 25px; }
+            .sidebar { width: 230px; }
         }
     </style>
 </head>
 <body>
 
     <div class="ambient-bg"></div>
-    <!-- Menu Overlay -->
+    <!-- Menu Overlay for auto-close -->
     <div id="menuOverlay" onclick="closeMenu()"></div>
 
-    <!-- Navigation -->
+    <!-- Top Navigation -->
     <nav>
         <a href="#" class="nav-logo" onclick="navigateTo('home')">
             <img src="IMG_3988.png" alt="ShieldX Logo" onerror="this.src='https://via.placeholder.com/50/0056b3/fff?text=S'">
@@ -286,7 +301,7 @@
         </div>
     </nav>
 
-    <!-- Side Menu -->
+    <!-- Slide Sidebar Menu -->
     <div class="sidebar" id="sidebar">
         <a href="#" onclick="navigateTo('home')">Home</a>
         <a href="#" onclick="navigateTo('tos')">Terms</a>
@@ -294,8 +309,8 @@
         <a href="https://discord.gg/s8D93585hE" target="_blank" style="color: var(--accent-light);">Support Server</a>
     </div>
 
-    <!-- Content -->
-    <div class="content-area" id="mainContent">
+    <!-- Main Content Area -->
+    <div class="content-area" id="mainContent" onclick="closeMenu()">
 
         <!-- HOME -->
         <section id="home" class="page active">
@@ -320,16 +335,16 @@
             <div class="glass-card">
                 <h2>Terms of Service</h2>
                 <div class="legal-item">
-                    <h3>Service Description</h3>
-                    <p>ShieldX provides automated moderation and security monitoring. By adding the bot, you authorize it to perform actions as configured by your administrators.</p>
+                    <h3>Service Commitment</h3>
+                    <p>ShieldX provides security-focused tools to manage server health. By using ShieldX, you grant permission to monitor guild activities for safety purposes.</p>
                 </div>
                 <div class="legal-item">
-                    <h3>Owner Responsibility</h3>
-                    <p>ShieldX is provided "as-is". <strong>Inviting the bot to your server is an independent decision made at your own risk.</strong> We are not liable for any server moderation outcomes.</p>
+                    <h3>Liability Release</h3>
+                    <p>ShieldX is provided as-is. <strong>Inviting ShieldX is an independent decision by the owner at their own risk.</strong> We are not responsible for moderation outcomes or server-specific policies.</p>
                 </div>
                 <div class="legal-item">
-                    <h3>Prohibited Use</h3>
-                    <p>Using ShieldX to harass users or violate Discord's terms will result in an immediate service suspension for your server.</p>
+                    <h3>Ethics Code</h3>
+                    <p>Users attempting to abuse bot mechanics or bypass security to harm others will be permanently restricted from our service network.</p>
                 </div>
             </div>
         </section>
@@ -339,16 +354,16 @@
             <div class="glass-card">
                 <h2>Privacy Policy</h2>
                 <div class="legal-item">
-                    <h3>Data Minimization</h3>
-                    <p>We only collect IDs (Server/User) necessary for anti-raid systems, trust scoring, and logging features.</p>
+                    <h3>Minimal Data Storage</h3>
+                    <p>We store only Server/User IDs required for trust calculation, moderation logging, and personalized server settings.</p>
                 </div>
                 <div class="legal-item">
-                    <h3>Data Privacy</h3>
-                    <p>Your community's information is never sold or shared. All data is stored securely and used only for bot functionality.</p>
+                    <h3>Integrity First</h3>
+                    <p>Your server data is never traded, sold, or shared. It is used exclusively to power the protection features of ShieldX.</p>
                 </div>
                 <div class="legal-item">
-                    <h3>User Rights</h3>
-                    <p>Server owners may request full data deletion at any time via our official support channels on Discord.</p>
+                    <h3>Data Management</h3>
+                    <p>Administrators can request a total data reset/removal for their guild at any time via our official support discord server.</p>
                 </div>
             </div>
         </section>
@@ -361,9 +376,10 @@
 
     <script>
         function toggleMenu(event) {
-            if (event) event.stopPropagation();
+            if (event) event.stopPropagation(); // Prevents immediate close from bubbling
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('menuOverlay');
+            
             sidebar.classList.toggle('active');
             overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
         }
@@ -371,23 +387,26 @@
         function closeMenu() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('menuOverlay');
-            sidebar.classList.remove('active');
-            overlay.style.display = 'none';
+            
+            if (sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                overlay.style.display = 'none';
+            }
         }
 
         function navigateTo(pageId) {
             closeMenu();
+
+            // Switch visibility
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
+
             const target = document.getElementById(pageId);
             if(target) {
                 target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
-
-        // Close menu on main content click
-        document.getElementById('mainContent').addEventListener('click', closeMenu);
     </script>
 </body>
 </html>
