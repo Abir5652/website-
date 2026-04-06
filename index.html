@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShieldX | Smart Discord Security</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Palette: Blue, Sky Blue, White */
+            --primary-blue: #0056b3;
+            --sky-blue: #00d2ff;
+            --soft-blue: #e0f2fe;
+            --glass-bg: rgba(255, 255, 255, 0.5);
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --text-dark: #003366;
+            --text-muted: #4b5563;
+            --glow-color: rgba(0, 210, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f0f9ff; /* Light Sky Background */
+            color: var(--text-dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.2) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(0, 86, 179, 0.15) 0%, transparent 45%),
+                #f8fafc;
+        }
+
+        /* Full Page Blur Overlay */
+        #pageBlurOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 800;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(0px);
+            pointer-events: none;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.menu-open #pageBlurOverlay {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.3);
+            pointer-events: auto;
+        }
+
+        /* Glass Navbar */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 85px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 6%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px rgba(0, 150, 255, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            padding: 10px 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .nav-logo span {
+            color: var(--primary-blue);
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, var(--primary-blue), var(--sky-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-logo img {
+            height: 44px; width: 44px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* Menu Button Animation to X */
+        .menu-btn {
+            cursor: pointer;
+            width: 48px; height: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            transition: 0.4s;
+            position: relative;
+            z-index: 1100;
+            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.1);
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 26px; height: 3px;
+            background: var(--primary-blue);
+            border-radius: 4px;
+            transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            position: absolute;
+        }
+
+        .menu-btn span:nth-child(1) { transform: translateY(-9px); }
+        .menu-btn span:nth-child(2) { opacity: 1; }
+        .menu-btn span:nth-child(3) { transform: translateY(9px); }
+
+        /* Transform to X */
+        .menu-btn.open span:nth-child(1) { transform: rotate(45deg); }
+        .menu-btn.open span:nth-child(2) { opacity: 0; transform: translateX(-15px); }
+        .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); }
+        .menu-btn.open { transform: rotate(180deg); background: var(--soft-blue); }
+
+        /* Crystal Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 100px; right: -320px;
+            width: 280px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 30px 20px;
+            z-index: 950;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            box-shadow: 0 20px 50px rgba(0, 86, 179, 0.1);
+        }
+
+        .sidebar.active { right: 25px; }
+
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            padding: 14px 22px;
+            border-radius: 18px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid transparent;
+        }
+
+        .sidebar a:hover {
+            background: white;
+            color: var(--primary-blue);
+            transform: translateX(-8px);
+            border-color: var(--glass-border);
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.1);
+        }
+
+        /* Content Sections */
+        .content-area { padding-top: 85px; min-height: 100vh; position: relative; }
+
+        .page {
+            display: none;
+            padding: 60px 20px;
+            max-width: 1050px;
+            margin: 0 auto;
+            animation: crystalFade 0.7s ease-out;
+        }
+
+        .page.active { display: block; }
+
+        @keyframes crystalFade {
+            from { opacity: 0; transform: scale(0.98) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Home Hero (Light, Blue, Sky, White) */
+        .hero { text-align: center; padding: 50px 0; }
+        .hero img { 
+            width: 170px; border-radius: 42px; margin-bottom: 35px; 
+            box-shadow: 0 20px 60px rgba(0, 150, 255, 0.2);
+            border: 4px solid white;
+        }
+        .hero h1 { 
+            font-size: clamp(3.5rem, 12vw, 6rem); 
+            font-weight: 900; 
+            margin-bottom: 25px; 
+            background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 15px rgba(0, 210, 255, 0.2));
+        }
+        .hero p { 
+            font-size: 1.4rem; color: var(--text-muted); 
+            max-width: 800px; margin: 0 auto 45px auto; 
+            line-height: 1.7; font-weight: 500;
+        }
+
+        .btn-container { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+        
+        .btn {
+            padding: 20px 55px;
+            border-radius: 100px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-decoration: none;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-width: 300px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid transparent;
+        }
+
+        .btn-add { 
+            background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue)); 
+            color: white; 
+            box-shadow: 0 12px 35px rgba(0, 86, 179, 0.35); 
+        }
+
+        .btn-support { 
+            background: white; 
+            color: var(--primary-blue); 
+            border-color: var(--glass-border); 
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.15); 
+        }
+
+        .btn:hover { 
+            transform: translateY(-8px) scale(1.03); 
+            filter: brightness(1.05); 
+            box-shadow: 0 15px 45px var(--glow-color); 
+        }
+
+        /* Glass Legal Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(35px);
+            border: 1px solid var(--glass-border);
+            padding: 55px;
+            border-radius: 45px;
+            box-shadow: 0 20px 60px rgba(0, 86, 179, 0.05);
+        }
+
+        .glass-card h2 { 
+            font-size: 3rem; margin-bottom: 12px; 
+            background: linear-gradient(to right, var(--primary-blue), var(--sky-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900; 
+        }
+        .last-updated { font-size: 0.95rem; color: var(--primary-blue); margin-bottom: 45px; display: block; font-weight: 800; opacity: 0.7; }
+
+        .legal-section { margin-bottom: 40px; }
+        .legal-section h3 { color: var(--primary-blue); margin-bottom: 15px; font-size: 1.6rem; font-weight: 800; }
+        .legal-section p { color: var(--text-muted); line-height: 1.8; font-weight: 500; font-size: 1.1rem; }
+        .legal-section ul { list-style: none; margin-top: 20px; }
+        .legal-section ul li { color: var(--text-muted); margin-bottom: 14px; padding-left: 35px; position: relative; font-weight: 500; }
+        .legal-section ul li::before { content: "🛡️"; position: absolute; left: 0; filter: hue-rotate(190deg); }
+
+        footer { text-align: center; padding: 100px 20px; color: var(--primary-blue); font-weight: 800; opacity: 0.6; letter-spacing: 1px; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            .glass-card { padding: 35px 25px; }
+            .btn { width: 95%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg"></div>
+    <!-- Blur Overlay to blur page content when menu is active -->
+    <div id="pageBlurOverlay" onclick="closeMenu()"></div>
+
+    <nav>
+        <a href="#" class="nav-logo" onclick="navigateTo('home')">
+            <img src="IMG_3988.png" alt="ShieldX Logo" onerror="this.src='https://via.placeholder.com/50/0056b3/fff?text=S'">
+            <span>SHIELDX</span>
+        </a>
+        <div class="menu-btn" id="menuBtn" onclick="toggleMenu(event)">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Crystal Menu Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <a href="#" onclick="navigateTo('home')">Home</a>
+        <a href="#" onclick="navigateTo('tos')">Terms of Service</a>
+        <a href="#" onclick="navigateTo('privacy')">Privacy Policy</a>
+        <a href="#" onclick="navigateTo('security')">Security Policy</a>
+        <a href="https://discord.gg/C8nKXyMpwS" target="_blank" style="color: var(--sky-blue); border: 1px solid var(--sky-blue);">Support Server</a>
+    </div>
+
+    <div class="content-area">
+        
+        <!-- HOME PAGE (Site-matched content) -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <img src="IMG_3988.png" alt="ShieldX Logo">
+                <h1>ShieldX</h1>
+                <p>
+                    ShieldX is the most complete Discord bot for security and management of your server. 
+                    Protect your server against attacks, spam and more with just a few clicks.
+                </p>
+                <div class="btn-container">
+                    <!-- Updated with Bot ID from previous request -->
+                    <a href="https://discord.com/oauth2/authorize?client_id=1254366657905131551&permissions=8&scope=bot" class="btn btn-add">Add to Discord</a>
+                    <a href="https://discord.gg/C8nKXyMpwS" target="_blank" class="btn btn-support">Support Server</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- TERMS OF SERVICE (Requested Text) -->
+        <section id="tos" class="page">
+            <div class="glass-card">
+                <h2>Terms of Service</h2>
+                <span class="last-updated">Effective Date: April 6, 2026</span>
+                
+                <div class="legal-section">
+                    <h3>1. General</h3>
+                    <p>ShieldX is a bot and management system for Discord servers. The service is provided "AS IS", without any liability for availability, reliability, or continuous operation.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>2. Responsibility</h3>
+                    <p>The use of the bot is the sole responsibility of the server owners. Users are responsible for configuring permissions and overseeing bot actions.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>3. Limitation of Liability</h3>
+                    <p>ShieldX and its developers are not liable for any damages including:</p>
+                    <ul>
+                        <li>Deletion of messages, channels, or data.</li>
+                        <li>Automated kicks, bans, or timeouts.</li>
+                        <li>Server disabling or functional downtime.</li>
+                        <li>Data loss or security breaches.</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h3>4. Prohibited Conduct</h3>
+                    <p>Using the bot to exploit systems, abuse API limits, or perform any illegal activity is strictly forbidden and will result in a permanent ban from our services.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRIVACY POLICY (Requested Text) -->
+        <section id="privacy" class="page">
+            <div class="glass-card">
+                <h2>Privacy Policy</h2>
+                <span class="last-updated">Effective Date: April 6, 2026</span>
+                
+                <div class="legal-section">
+                    <h3>1. Collected Data</h3>
+                    <p>When using ShieldX, technical and operational data may be stored, including:</p>
+                    <ul>
+                        <li>User and Server IDs.</li>
+                        <li>Messages for security and anti-spam monitoring.</li>
+                        <li>Basic activity telemetry and technical device info.</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h3>2. Data Integrity</h3>
+                    <p>Information is never sold. It is strictly used for identification of malicious activities and service maintenance.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>3. Storage Duration</h3>
+                    <p>Security logs and telemetry are kept as long as necessary to protect against persistent threats, after which they are purged from our secure servers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECURITY POLICY (Requested Text) -->
+        <section id="security" class="page">
+            <div class="glass-card">
+                <h2>Security Policy</h2>
+                <span class="last-updated">Active Protection Status: Online</span>
+                
+                <div class="legal-section">
+                    <h3>1. Core Protection</h3>
+                    <p>ShieldX works to provide an advanced management system for Discord through automated detection of irregular activity.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>2. Automated Actions</h3>
+                    <p>The system may perform automated actions such as message deletion, mutes, kicks, or bans based on signature behavior patterns.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>3. Limitations</h3>
+                    <p>There is no guarantee to prevent every single malicious act. False positives or technical errors may occur.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        &copy; 2026 SHIELDX SECURITY SOLUTIONS. ALL RIGHTS RESERVED.
+    </footer>
+
+    <script>
+        // Hamburger toggle with X animation
+        function toggleMenu(event) {
+            if (event) event.stopPropagation();
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menuBtn');
+            const isOpen = sidebar.classList.toggle('active');
+            menuBtn.classList.toggle('open');
+            document.body.classList.toggle('menu-open', isOpen);
+        }
+
+        // Close menu function
+        function closeMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menuBtn');
+            sidebar.classList.remove('active');
+            menuBtn.classList.remove('open');
+            document.body.classList.remove('menu-open');
+        }
+
+        // SPA-like navigation
+        function navigateTo(pageId) {
+            closeMenu();
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(pageId);
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Prevent scrolling when interacting with menu on mobile
+        document.getElementById('sidebar').addEventListener('touchmove', function(e) {
+            e.stopPropagation();
+        }, false);
+    </script>
+</body>
+</html>
