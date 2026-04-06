@@ -8,7 +8,7 @@
         :root {
             --primary-blue: #0056b3;
             --accent-light: #00d2ff;
-            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-bg: rgba(255, 255, 255, 0.7);
             --glass-border: rgba(255, 255, 255, 0.4);
             --text-dark: #1e293b;
             --text-muted: #64748b;
@@ -28,28 +28,18 @@
             min-height: 100vh;
         }
 
-        /* Ambient Background Overlay */
+        /* Ambient Background */
         .ambient-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background: 
-                radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 86, 179, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 86, 179, 0.12) 0%, transparent 40%),
                 radial-gradient(circle at 50% 50%, #ffffff 0%, #f0f4f8 100%);
         }
 
-        /* Overlay for closing menu */
-        #menuOverlay {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.02);
-            z-index: 850;
-            display: none;
-            backdrop-filter: blur(2px);
-        }
-
-        /* Navbar Styling */
+        /* Navbar */
         nav {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 85px;
@@ -64,49 +54,41 @@
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
         }
 
-        /* Glowing Glass Logo */
+        /* Glassy Glow Logo Area */
         .nav-logo {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            padding: 10px 22px;
-            background: rgba(255, 255, 255, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 20px;
-            backdrop-filter: blur(12px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3), 0 5px 15px rgba(0,0,0,0.05);
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
         .nav-logo span {
             color: var(--primary-blue);
             font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            background: linear-gradient(to right, var(--primary-blue), var(--accent-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.2));
+            font-size: 1.4rem;
+            letter-spacing: 1px;
         }
 
         .nav-logo img {
-            height: 44px;
-            width: 44px;
-            border-radius: 12px;
+            height: 42px;
+            width: 42px;
+            border-radius: 10px;
             object-fit: cover;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .nav-logo:hover {
-            transform: scale(1.03) translateY(-2px);
-            background: rgba(255, 255, 255, 0.5);
-            border-color: var(--accent-light);
-            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.15);
+            background: rgba(255, 255, 255, 0.6);
+            transform: translateY(-2px);
         }
 
-        /* Hamburger Button */
+        /* Animated Hamburger Menu Button */
         .menu-btn {
             cursor: pointer;
             width: 45px; height: 45px;
@@ -114,39 +96,60 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 6px;
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid var(--glass-border);
-            border-radius: 14px;
-            transition: 0.3s;
+            border-radius: 12px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
             z-index: 1100;
         }
 
-        .menu-btn:hover { background: #fff; transform: scale(1.05); border-color: var(--accent-light); }
-
         .menu-btn span {
-            width: 26px; height: 3px;
+            display: block;
+            width: 24px;
+            height: 3px;
             background: var(--primary-blue);
-            border-radius: 3px;
-            transition: 0.3s;
+            border-radius: 2px;
+            transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+            position: absolute;
         }
 
-        /* Mini Sidebar */
+        .menu-btn span:nth-child(1) { transform: translateY(-8px); }
+        .menu-btn span:nth-child(2) { opacity: 1; }
+        .menu-btn span:nth-child(3) { transform: translateY(8px); }
+
+        /* Animation State: X */
+        .menu-btn.open span:nth-child(1) {
+            transform: translateY(0) rotate(45deg);
+        }
+        .menu-btn.open span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        .menu-btn.open span:nth-child(3) {
+            transform: translateY(0) rotate(-45deg);
+        }
+        .menu-btn.open {
+            background: #fff;
+            transform: rotate(180deg);
+        }
+
+        /* Sidebar Styling */
         .sidebar {
             position: fixed;
-            top: 100px; right: -320px;
-            width: 260px;
+            top: 95px; right: -300px;
+            width: 250px;
             background: var(--glass-bg);
-            backdrop-filter: blur(30px);
+            backdrop-filter: blur(25px);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 30px 15px;
-            z-index: 900;
+            border-radius: 25px;
+            padding: 25px 15px;
+            z-index: 950;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
             transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
         }
 
         .sidebar.active { right: 25px; }
@@ -155,34 +158,41 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 700;
-            padding: 14px 20px;
-            border-radius: 18px;
+            padding: 12px 18px;
+            border-radius: 15px;
             transition: 0.2s;
-            font-size: 1.05rem;
-            display: block;
+            font-size: 1rem;
         }
 
         .sidebar a:hover {
             background: rgba(255, 255, 255, 0.8);
             color: var(--primary-blue);
-            transform: translateX(-8px);
+            transform: translateX(-5px);
         }
 
-        /* Main Content Container */
-        .content-area { padding-top: 85px; min-height: 100vh; position: relative; }
+        /* Invisible Overlay to close menu on click */
+        #menuOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 900;
+            display: none;
+        }
+
+        /* Content Area */
+        .content-area { padding-top: 85px; min-height: 100vh; }
 
         .page {
             display: none;
             padding: 60px 20px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            animation: fadeIn 0.7s ease-out forwards;
+            animation: fadeIn 0.6s ease-out forwards;
         }
 
         .page.active { display: block; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -190,43 +200,42 @@
         .hero { text-align: center; padding: 40px 0; }
 
         .hero-logo {
-            width: 160px; height: 160px;
-            border-radius: 40px;
-            margin-bottom: 35px;
-            box-shadow: 0 20px 60px rgba(0, 86, 179, 0.12);
+            width: 150px; height: 150px;
+            border-radius: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0, 86, 179, 0.1);
             object-fit: cover;
         }
 
         .hero h1 {
-            font-size: clamp(2.8rem, 9vw, 5rem);
-            font-weight: 950;
-            line-height: 1.05;
-            margin-bottom: 25px;
+            font-size: clamp(2.5rem, 8vw, 4.8rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
         }
 
         .hero p {
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             color: var(--text-muted);
-            max-width: 780px;
-            margin: 0 auto 50px;
-            line-height: 1.7;
+            max-width: 750px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
             font-weight: 500;
         }
 
         /* Buttons */
-        .btn-group { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
 
         .btn {
-            padding: 20px 45px;
+            padding: 18px 40px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 800;
-            font-size: 1.2rem;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 1.1rem;
+            transition: 0.4s;
             display: inline-flex;
             align-items: center;
         }
@@ -234,10 +243,10 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-light));
             color: white;
-            box-shadow: 0 12px 35px rgba(0, 86, 179, 0.25);
+            box-shadow: 0 10px 25px rgba(0, 86, 179, 0.2);
         }
 
-        .btn-primary:hover { transform: translateY(-6px); box-shadow: 0 20px 45px rgba(0, 86, 179, 0.35); }
+        .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0, 86, 179, 0.3); }
 
         .btn-secondary {
             background: white;
@@ -245,63 +254,59 @@
             border: 1px solid var(--glass-border);
         }
 
-        .btn-secondary:hover { transform: translateY(-6px); background: #fcfdfe; box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
+        .btn-secondary:hover { transform: translateY(-4px); background: #f8fafc; }
 
-        /* Legal Content */
+        /* Legal Cards */
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(35px);
+            backdrop-filter: blur(30px);
             border: 1px solid var(--glass-border);
-            padding: 60px;
-            border-radius: 45px;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.04);
+            padding: 50px;
+            border-radius: 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.03);
         }
 
-        .glass-card h2 { font-size: 3rem; margin-bottom: 45px; color: var(--primary-blue); letter-spacing: -1px; }
+        .glass-card h2 { font-size: 2.8rem; margin-bottom: 40px; color: var(--primary-blue); }
 
         .legal-item {
-            margin-bottom: 30px;
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.55);
-            border-radius: 25px;
-            border-left: 6px solid var(--accent-light);
-            transition: 0.3s;
+            margin-bottom: 25px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            border-left: 5px solid var(--accent-light);
         }
 
-        .legal-item:hover { background: rgba(255, 255, 255, 0.7); transform: translateX(5px); }
-        .legal-item h3 { color: var(--primary-blue); margin-bottom: 10px; font-size: 1.6rem; }
-        .legal-item p { color: var(--text-muted); line-height: 1.8; font-weight: 500; }
+        .legal-item h3 { color: var(--primary-blue); margin-bottom: 8px; font-size: 1.4rem; }
+        .legal-item p { color: var(--text-muted); line-height: 1.7; font-weight: 500; }
 
-        footer { text-align: center; padding: 70px 20px; color: var(--text-muted); font-weight: 600; font-size: 1rem; }
+        footer { text-align: center; padding: 60px 20px; color: var(--text-muted); font-weight: 600; font-size: 0.9rem; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3rem; }
-            .hero p { font-size: 1.2rem; }
-            .glass-card { padding: 40px 25px; }
-            .sidebar { width: 230px; }
+            .hero h1 { font-size: 2.8rem; }
+            .glass-card { padding: 35px 20px; }
         }
     </style>
 </head>
 <body>
 
     <div class="ambient-bg"></div>
-    <!-- Menu Overlay for auto-close -->
-    <div id="menuOverlay" onclick="closeMenu()"></div>
+    <!-- Overlay for closing -->
+    <div id="menuOverlay" onclick="closeAll()"></div>
 
-    <!-- Top Navigation -->
+    <!-- Navigation -->
     <nav>
         <a href="#" class="nav-logo" onclick="navigateTo('home')">
             <img src="IMG_3988.png" alt="ShieldX Logo" onerror="this.src='https://via.placeholder.com/50/0056b3/fff?text=S'">
             <span>SHIELDX</span>
         </a>
-        <div class="menu-btn" onclick="toggleMenu(event)">
+        <div class="menu-btn" id="menuBtn" onclick="toggleMenu(event)">
             <span></span>
             <span></span>
             <span></span>
         </div>
     </nav>
 
-    <!-- Slide Sidebar Menu -->
+    <!-- Side Menu -->
     <div class="sidebar" id="sidebar">
         <a href="#" onclick="navigateTo('home')">Home</a>
         <a href="#" onclick="navigateTo('tos')">Terms</a>
@@ -310,7 +315,7 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="content-area" id="mainContent" onclick="closeMenu()">
+    <div class="content-area" id="mainArea" onclick="closeAll()">
 
         <!-- HOME -->
         <section id="home" class="page active">
@@ -335,16 +340,16 @@
             <div class="glass-card">
                 <h2>Terms of Service</h2>
                 <div class="legal-item">
-                    <h3>Service Commitment</h3>
-                    <p>ShieldX provides security-focused tools to manage server health. By using ShieldX, you grant permission to monitor guild activities for safety purposes.</p>
+                    <h3>Service Description</h3>
+                    <p>ShieldX provides automated moderation and security monitoring. By adding the bot, you authorize it to perform administrative actions as configured.</p>
                 </div>
                 <div class="legal-item">
-                    <h3>Liability Release</h3>
-                    <p>ShieldX is provided as-is. <strong>Inviting ShieldX is an independent decision by the owner at their own risk.</strong> We are not responsible for moderation outcomes or server-specific policies.</p>
+                    <h3>Responsibility</h3>
+                    <p>ShieldX is provided "as-is". <strong>Inviting the bot to your server is an independent decision made by the owner at their own risk.</strong> We are not liable for moderation outcomes.</p>
                 </div>
                 <div class="legal-item">
-                    <h3>Ethics Code</h3>
-                    <p>Users attempting to abuse bot mechanics or bypass security to harm others will be permanently restricted from our service network.</p>
+                    <h3>Abuse Policy</h3>
+                    <p>Any attempt to manipulate bot systems to harm others will result in an immediate and permanent blacklist from our service.</p>
                 </div>
             </div>
         </section>
@@ -354,16 +359,16 @@
             <div class="glass-card">
                 <h2>Privacy Policy</h2>
                 <div class="legal-item">
-                    <h3>Minimal Data Storage</h3>
-                    <p>We store only Server/User IDs required for trust calculation, moderation logging, and personalized server settings.</p>
+                    <h3>Data Usage</h3>
+                    <p>We store only essential identifiers (Server/User IDs) to power our anti-raid systems, TrustScores, and moderation logs.</p>
                 </div>
                 <div class="legal-item">
-                    <h3>Integrity First</h3>
-                    <p>Your server data is never traded, sold, or shared. It is used exclusively to power the protection features of ShieldX.</p>
+                    <h3>Integrity</h3>
+                    <p>Your community data is never sold or shared with third parties. All information is used strictly for server protection features.</p>
                 </div>
                 <div class="legal-item">
-                    <h3>Data Management</h3>
-                    <p>Administrators can request a total data reset/removal for their guild at any time via our official support discord server.</p>
+                    <h3>Data Removal</h3>
+                    <p>Guild administrators can request full data deletion for their server at any time through our official support channel.</p>
                 </div>
             </div>
         </section>
@@ -376,31 +381,33 @@
 
     <script>
         function toggleMenu(event) {
-            if (event) event.stopPropagation(); // Prevents immediate close from bubbling
+            if (event) event.stopPropagation();
             const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menuBtn');
             const overlay = document.getElementById('menuOverlay');
             
-            sidebar.classList.toggle('active');
-            overlay.style.display = sidebar.classList.contains('active') ? 'block' : 'none';
+            const isOpen = sidebar.classList.toggle('active');
+            menuBtn.classList.toggle('open');
+            
+            overlay.style.display = isOpen ? 'block' : 'none';
         }
 
-        function closeMenu() {
+        function closeAll() {
             const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menuBtn');
             const overlay = document.getElementById('menuOverlay');
             
             if (sidebar.classList.contains('active')) {
                 sidebar.classList.remove('active');
+                menuBtn.classList.remove('open');
                 overlay.style.display = 'none';
             }
         }
 
         function navigateTo(pageId) {
-            closeMenu();
-
-            // Switch visibility
+            closeAll();
             const pages = document.querySelectorAll('.page');
             pages.forEach(p => p.classList.remove('active'));
-
             const target = document.getElementById(pageId);
             if(target) {
                 target.classList.add('active');
