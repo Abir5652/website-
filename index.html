@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShieldX | Smart Discord Security</title>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Palette: Blue, Sky Blue, White */
             --primary-blue: #0056b3;
             --sky-blue: #00d2ff;
-            --soft-blue: #e0f2fe;
-            --glass-bg: rgba(255, 255, 255, 0.5);
-            --glass-border: rgba(255, 255, 255, 0.7);
+            --soft-blue: #f0f9ff;
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.8);
             --text-dark: #003366;
             --text-muted: #4b5563;
-            --glow-color: rgba(0, 210, 255, 0.4);
         }
 
         * {
@@ -27,24 +24,22 @@
         }
 
         body {
-            background-color: #f0f9ff; /* Light Sky Background */
+            background-color: var(--soft-blue);
             color: var(--text-dark);
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* Animated Ambient Background */
         .ambient-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             background: 
-                radial-gradient(circle at 15% 15%, rgba(0, 210, 255, 0.2) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(0, 86, 179, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 10% 10%, rgba(0, 210, 255, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(0, 86, 179, 0.15) 0%, transparent 40%),
                 #f8fafc;
         }
 
-        /* Full Page Blur Overlay */
         #pageBlurOverlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -61,7 +56,6 @@
             pointer-events: auto;
         }
 
-        /* Glass Navbar */
         nav {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 85px;
@@ -85,26 +79,18 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            transition: 0.3s;
         }
 
         .nav-logo span {
-            color: var(--primary-blue);
             font-weight: 900;
             font-size: 1.5rem;
-            letter-spacing: 1px;
             background: linear-gradient(to right, var(--primary-blue), var(--sky-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .nav-logo img {
-            height: 44px; width: 44px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
+        .nav-logo img { height: 42px; width: 42px; border-radius: 10px; }
 
-        /* Menu Button Animation to X */
         .menu-btn {
             cursor: pointer;
             width: 48px; height: 48px;
@@ -118,7 +104,6 @@
             transition: 0.4s;
             position: relative;
             z-index: 1100;
-            box-shadow: 0 5px 15px rgba(0, 86, 179, 0.1);
         }
 
         .menu-btn span {
@@ -134,18 +119,15 @@
         .menu-btn span:nth-child(2) { opacity: 1; }
         .menu-btn span:nth-child(3) { transform: translateY(9px); }
 
-        /* Transform to X */
         .menu-btn.open span:nth-child(1) { transform: rotate(45deg); }
         .menu-btn.open span:nth-child(2) { opacity: 0; transform: translateX(-15px); }
         .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); }
-        .menu-btn.open { transform: rotate(180deg); background: var(--soft-blue); }
 
-        /* Crystal Sidebar */
         .sidebar {
             position: fixed;
             top: 100px; right: -320px;
             width: 280px;
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(40px);
             border: 1px solid var(--glass-border);
             border-radius: 28px;
@@ -168,131 +150,114 @@
             border-radius: 18px;
             transition: 0.3s;
             background: rgba(255, 255, 255, 0.3);
-            border: 1px solid transparent;
         }
 
         .sidebar a:hover {
             background: white;
             color: var(--primary-blue);
             transform: translateX(-8px);
-            border-color: var(--glass-border);
-            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.1);
         }
 
-        /* Content Sections */
         .content-area { padding-top: 85px; min-height: 100vh; position: relative; }
 
         .page {
             display: none;
             padding: 60px 20px;
-            max-width: 1050px;
+            max-width: 1000px;
             margin: 0 auto;
-            animation: crystalFade 0.7s ease-out;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .page.active { display: block; }
 
-        @keyframes crystalFade {
-            from { opacity: 0; transform: scale(0.98) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Home Hero (Light, Blue, Sky, White) */
-        .hero { text-align: center; padding: 50px 0; }
-        .hero img { 
-            width: 170px; border-radius: 42px; margin-bottom: 35px; 
-            box-shadow: 0 20px 60px rgba(0, 150, 255, 0.2);
-            border: 4px solid white;
-        }
+        /* Hero & Buttons */
+        .hero { text-align: center; padding: 40px 0; }
+        .hero img { width: 160px; border-radius: 40px; margin-bottom: 30px; box-shadow: 0 15px 45px rgba(0, 150, 255, 0.2); }
         .hero h1 { 
-            font-size: clamp(3.5rem, 12vw, 6rem); 
+            font-size: clamp(3.5rem, 10vw, 5.5rem); 
             font-weight: 900; 
-            margin-bottom: 25px; 
-            background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue)); 
-            -webkit-background-clip: text; 
+            margin-bottom: 20px; 
+            background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue));
+            -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 5px 15px rgba(0, 210, 255, 0.2));
         }
-        .hero p { 
-            font-size: 1.4rem; color: var(--text-muted); 
-            max-width: 800px; margin: 0 auto 45px auto; 
-            line-height: 1.7; font-weight: 500;
-        }
+        .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 800px; margin: 0 auto 40px auto; line-height: 1.7; }
 
         .btn-container { display: flex; flex-direction: column; align-items: center; gap: 18px; }
         
         .btn {
-            padding: 20px 55px;
+            width: 320px;
+            height: 65px;
             border-radius: 100px;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 800;
             text-decoration: none;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            min-width: 300px;
-            display: inline-flex;
+            display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid transparent;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
         }
 
         .btn-add { 
-            background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue)); 
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--sky-blue) 100%);
             color: white; 
-            box-shadow: 0 12px 35px rgba(0, 86, 179, 0.35); 
+            box-shadow: 0 10px 30px rgba(0, 86, 179, 0.3); 
         }
 
         .btn-support { 
             background: white; 
             color: var(--primary-blue); 
-            border-color: var(--glass-border); 
-            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.15); 
+            border: 2px solid var(--glass-border);
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.1); 
         }
 
-        .btn:hover { 
-            transform: translateY(-8px) scale(1.03); 
-            filter: brightness(1.05); 
-            box-shadow: 0 15px 45px var(--glow-color); 
-        }
+        .btn:hover { transform: translateY(-7px); filter: brightness(1.05); box-shadow: 0 15px 40px rgba(0, 210, 255, 0.3); }
 
-        /* Glass Legal Cards */
+        /* Legal Glass Cards */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(35px);
             border: 1px solid var(--glass-border);
-            padding: 55px;
-            border-radius: 45px;
-            box-shadow: 0 20px 60px rgba(0, 86, 179, 0.05);
+            padding: 50px;
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(0, 86, 179, 0.05);
         }
 
         .glass-card h2 { 
-            font-size: 3rem; margin-bottom: 12px; 
+            font-size: 2.8rem; margin-bottom: 12px; 
             background: linear-gradient(to right, var(--primary-blue), var(--sky-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 900; 
+            font-weight: 900;
         }
-        .last-updated { font-size: 0.95rem; color: var(--primary-blue); margin-bottom: 45px; display: block; font-weight: 800; opacity: 0.7; }
+        .last-updated { font-size: 0.95rem; color: var(--primary-blue); margin-bottom: 40px; display: block; font-weight: 800; opacity: 0.7; }
 
-        .legal-section { margin-bottom: 40px; }
-        .legal-section h3 { color: var(--primary-blue); margin-bottom: 15px; font-size: 1.6rem; font-weight: 800; }
+        .legal-section { margin-bottom: 35px; }
+        .legal-section h3 { color: var(--primary-blue); margin-bottom: 15px; font-size: 1.5rem; font-weight: 800; border-left: 4px solid var(--sky-blue); padding-left: 15px; }
         .legal-section p { color: var(--text-muted); line-height: 1.8; font-weight: 500; font-size: 1.1rem; }
-        .legal-section ul { list-style: none; margin-top: 20px; }
-        .legal-section ul li { color: var(--text-muted); margin-bottom: 14px; padding-left: 35px; position: relative; font-weight: 500; }
-        .legal-section ul li::before { content: "🛡️"; position: absolute; left: 0; filter: hue-rotate(190deg); }
+        .legal-section ul { list-style: none; margin-top: 15px; }
+        .legal-section ul li { color: var(--text-muted); margin-bottom: 12px; padding-left: 35px; position: relative; font-weight: 500; }
+        .legal-section ul li::before { content: "🛡️"; position: absolute; left: 0; }
 
-        footer { text-align: center; padding: 100px 20px; color: var(--primary-blue); font-weight: 800; opacity: 0.6; letter-spacing: 1px; }
+        footer { text-align: center; padding: 100px 20px; color: var(--primary-blue); font-weight: 800; opacity: 0.5; }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 3.5rem; }
-            .glass-card { padding: 35px 25px; }
-            .btn { width: 95%; }
+            .hero h1 { font-size: 3.2rem; }
+            .glass-card { padding: 30px 20px; }
+            .btn { width: 90%; }
         }
     </style>
 </head>
 <body>
 
     <div class="ambient-bg"></div>
-    <!-- Blur Overlay to blur page content when menu is active -->
     <div id="pageBlurOverlay" onclick="closeMenu()"></div>
 
     <nav>
@@ -307,18 +272,17 @@
         </div>
     </nav>
 
-    <!-- Crystal Menu Sidebar -->
     <div class="sidebar" id="sidebar">
         <a href="#" onclick="navigateTo('home')">Home</a>
         <a href="#" onclick="navigateTo('tos')">Terms of Service</a>
         <a href="#" onclick="navigateTo('privacy')">Privacy Policy</a>
         <a href="#" onclick="navigateTo('security')">Security Policy</a>
-        <a href="https://discord.gg/C8nKXyMpwS" target="_blank" style="color: var(--sky-blue); border: 1px solid var(--sky-blue);">Support Server</a>
+        <a href="https://discord.gg/C8nKXyMpwS" target="_blank" style="color: var(--sky-blue);">Support Server</a>
     </div>
 
     <div class="content-area">
         
-        <!-- HOME PAGE (Site-matched content) -->
+        <!-- HOME PAGE -->
         <section id="home" class="page active">
             <div class="hero">
                 <img src="IMG_3988.png" alt="ShieldX Logo">
@@ -328,94 +292,168 @@
                     Protect your server against attacks, spam and more with just a few clicks.
                 </p>
                 <div class="btn-container">
-                    <!-- Updated with Bot ID from previous request -->
                     <a href="https://discord.com/oauth2/authorize?client_id=1254366657905131551&permissions=8&scope=bot" class="btn btn-add">Add to Discord</a>
                     <a href="https://discord.gg/C8nKXyMpwS" target="_blank" class="btn btn-support">Support Server</a>
                 </div>
             </div>
         </section>
 
-        <!-- TERMS OF SERVICE (Requested Text) -->
+        <!-- TERMS OF SERVICE - ACCURATE TRANSLATION -->
         <section id="tos" class="page">
             <div class="glass-card">
                 <h2>Terms of Service</h2>
-                <span class="last-updated">Effective Date: April 6, 2026</span>
-                
+                <span class="last-updated">Last Updated: April 6, 2026</span>
+                <p style="margin-bottom: 25px; font-weight: 600;">Use of ShieldX constitutes agreement to the following terms:</p>
+
                 <div class="legal-section">
                     <h3>1. General</h3>
-                    <p>ShieldX is a bot and management system for Discord servers. The service is provided "AS IS", without any liability for availability, reliability, or continuous operation.</p>
+                    <p>ShieldX is a bot and management system for securing Discord servers. The service is provided "AS IS", without any commitment to availability, reliability, or proper operation at all times.</p>
                 </div>
 
                 <div class="legal-section">
-                    <h3>2. Responsibility</h3>
-                    <p>The use of the bot is the sole responsibility of the server owners. Users are responsible for configuring permissions and overseeing bot actions.</p>
+                    <h3>2. Usage Responsibility</h3>
+                    <p>Use of the bot is the sole responsibility of the server owners. The user is responsible for configuring appropriate permissions and overseeing the bot's operations.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3>3. Limitation of Liability</h3>
-                    <p>ShieldX and its developers are not liable for any damages including:</p>
+                    <p>ShieldX, its developers, and operators shall not be liable for any damage of any kind, direct or indirect, including but not limited to:</p>
                     <ul>
-                        <li>Deletion of messages, channels, or data.</li>
-                        <li>Automated kicks, bans, or timeouts.</li>
-                        <li>Server disabling or functional downtime.</li>
-                        <li>Data loss or security breaches.</li>
+                        <li>Deletion of messages, channels, or data</li>
+                        <li>Automated actions such as kicks, bans, or timeouts</li>
+                        <li>Server disabling or disruption of server functionality</li>
+                        <li>Loss of information</li>
+                        <li>Breaches, attacks, or unauthorized access</li>
+                        <li>System malfunctions or programming errors</li>
+                    </ul>
+                    <p>The use of the bot and system is at the user's sole responsibility.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>4. Permissions</h3>
+                    <p>Adding the bot to a server constitutes approval to grant the permissions required for its operation, including administrative permissions if necessary.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>5. Prohibited Use</h3>
+                    <p>The service must not be used for:</p>
+                    <ul>
+                        <li>Illegal activity</li>
+                        <li>Attempts to breach, exploit vulnerabilities, or damage the system</li>
+                        <li>Abuse of bot functions</li>
                     </ul>
                 </div>
 
                 <div class="legal-section">
-                    <h3>4. Prohibited Conduct</h3>
-                    <p>Using the bot to exploit systems, abuse API limits, or perform any illegal activity is strictly forbidden and will result in a permanent ban from our services.</p>
+                    <h3>6. Service Availability</h3>
+                    <p>There is no commitment to the continuous availability of the service. The service may be stopped, changed, or closed at any time without prior notice.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>7. Termination of Use</h3>
+                    <p>We reserve the right to suspend, limit, or block access to the service at any time, at our sole discretion.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>8. Changes to Terms</h3>
+                    <p>We reserve the right to update these terms at any time. Continued use of the service constitutes agreement to the updated terms.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PRIVACY POLICY (Requested Text) -->
+        <!-- PRIVACY POLICY - ACCURATE TRANSLATION -->
         <section id="privacy" class="page">
             <div class="glass-card">
                 <h2>Privacy Policy</h2>
-                <span class="last-updated">Effective Date: April 6, 2026</span>
+                <span class="last-updated">Last Updated: April 6, 2026</span>
                 
                 <div class="legal-section">
-                    <h3>1. Collected Data</h3>
-                    <p>When using ShieldX, technical and operational data may be stored, including:</p>
+                    <h3>1. Information Collected</h3>
+                    <p>When using ShieldX, technical and operational information may be collected, including:</p>
                     <ul>
-                        <li>User and Server IDs.</li>
-                        <li>Messages for security and anti-spam monitoring.</li>
-                        <li>Basic activity telemetry and technical device info.</li>
+                        <li>User and Server identifiers (User ID, Server ID)</li>
+                        <li>Messages for security and anti-spam purposes</li>
+                        <li>Basic activity data</li>
+                        <li>Technical information such as IP address, browser type, and operating system</li>
                     </ul>
                 </div>
 
                 <div class="legal-section">
-                    <h3>2. Data Integrity</h3>
-                    <p>Information is never sold. It is strictly used for identification of malicious activities and service maintenance.</p>
+                    <h3>2. Use of Information</h3>
+                    <p>The information is collected and used for:</p>
+                    <ul>
+                        <li>Operating and maintaining the service</li>
+                        <li>Securing servers and users</li>
+                        <li>Identifying and preventing malicious activity</li>
+                        <li>Improving the service</li>
+                    </ul>
                 </div>
 
                 <div class="legal-section">
-                    <h3>3. Storage Duration</h3>
-                    <p>Security logs and telemetry are kept as long as necessary to protect against persistent threats, after which they are purged from our secure servers.</p>
+                    <h3>3. Sharing of Information</h3>
+                    <p>Information is not sold or transferred to third parties, except in the following cases:</p>
+                    <ul>
+                        <li>Legal requirement</li>
+                        <li>Protection of legal rights</li>
+                        <li>Prevention of illegal or malicious activity</li>
+                    </ul>
+                </div>
+
+                <div class="legal-section">
+                    <h3>4. Information Security</h3>
+                    <p>We take reasonable measures to protect the information, but we cannot guarantee complete security.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>5. Data Retention</h3>
+                    <p>The information is kept as long as it is required for the operation of the service or according to legal requirements.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>6. User Rights</h3>
+                    <p>Users may request to review, correct, or delete information, subject to technical and legal limitations.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>7. Changes to Policy</h3>
+                    <p>We reserve the right to update this policy at any time.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECURITY POLICY (Requested Text) -->
+        <!-- SECURITY POLICY - ACCURATE TRANSLATION -->
         <section id="security" class="page">
             <div class="glass-card">
                 <h2>Security Policy</h2>
-                <span class="last-updated">Active Protection Status: Online</span>
                 
                 <div class="legal-section">
-                    <h3>1. Core Protection</h3>
-                    <p>ShieldX works to provide an advanced management system for Discord through automated detection of irregular activity.</p>
+                    <h3>1. General</h3>
+                    <p>ShieldX operates to provide a security and management system for Discord servers through automated mechanisms for identifying unusual activity.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3>2. Automated Actions</h3>
-                    <p>The system may perform automated actions such as message deletion, mutes, kicks, or bans based on signature behavior patterns.</p>
+                    <p>The system may perform automated actions such as deleting messages, muting, kicking, or banning, based on the identification of suspicious activity.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3>3. Limitations</h3>
-                    <p>There is no guarantee to prevent every single malicious act. False positives or technical errors may occur.</p>
+                    <p>There is no commitment to prevent all malicious activity. Cases of errors, misidentification, or malfunctions may occur.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>4. Responsibility</h3>
+                    <p>ShieldX is not responsible for damage caused as a result of the system's actions, including incorrect or unexpected actions.</p>
+                </div>
+
+                <div class="legal-section">
+                    <h3>5. User Responsibility</h3>
+                    <p>The user is responsible for:</p>
+                    <ul>
+                        <li>Configuring permissions correctly</li>
+                        <li>Monitoring the bot's operation</li>
+                        <li>Using the service in accordance with the law</li>
+                    </ul>
                 </div>
             </div>
         </section>
@@ -423,11 +461,10 @@
     </div>
 
     <footer>
-        &copy; 2026 SHIELDX SECURITY SOLUTIONS. ALL RIGHTS RESERVED.
+        &copy; 2026 SHIELDX SECURITY. ALL RIGHTS RESERVED.
     </footer>
 
     <script>
-        // Hamburger toggle with X animation
         function toggleMenu(event) {
             if (event) event.stopPropagation();
             const sidebar = document.getElementById('sidebar');
@@ -437,7 +474,6 @@
             document.body.classList.toggle('menu-open', isOpen);
         }
 
-        // Close menu function
         function closeMenu() {
             const sidebar = document.getElementById('sidebar');
             const menuBtn = document.getElementById('menuBtn');
@@ -446,7 +482,6 @@
             document.body.classList.remove('menu-open');
         }
 
-        // SPA-like navigation
         function navigateTo(pageId) {
             closeMenu();
             const pages = document.querySelectorAll('.page');
@@ -457,11 +492,6 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
-
-        // Prevent scrolling when interacting with menu on mobile
-        document.getElementById('sidebar').addEventListener('touchmove', function(e) {
-            e.stopPropagation();
-        }, false);
     </script>
 </body>
 </html>
