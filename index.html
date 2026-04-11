@@ -1,4 +1,4 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,7 @@
             --glass-border: rgba(255, 255, 255, 0.8);
             --text-dark: #003366;
             --text-muted: #4b5563;
+            --success-green: #2ecc71;
         }
 
         * {
@@ -30,13 +31,9 @@
             min-height: 100vh;
         }
 
-        /* Ambient Background Elements */
         .ambient-bg {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             background: 
                 radial-gradient(circle at 10% 10%, rgba(0, 210, 255, 0.2) 0%, transparent 40%),
@@ -44,13 +41,9 @@
                 #f8fafc;
         }
 
-        /* Blur Overlay for Menu */
         #pageBlurOverlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 800;
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(0px);
@@ -64,13 +57,9 @@
             pointer-events: auto;
         }
 
-        /* Navbar Style */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 85px;
+            top: 0; left: 0; width: 100%; height: 85px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -91,37 +80,20 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            transition: 0.3s;
-        }
-
-        .nav-logo:hover {
-            transform: translateY(-2px);
-            background: white;
         }
 
         .nav-logo span {
             font-weight: 900;
             font-size: 1.5rem;
-            letter-spacing: -1px;
             background: linear-gradient(to right, var(--primary-blue), var(--sky-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .nav-logo img {
-            height: 42px;
-            width: 42px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
+        .nav-logo img { height: 42px; width: 42px; border-radius: 10px; }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+        .nav-right { display: flex; align-items: center; gap: 15px; }
 
-        /* Login Button & Profile */
         .login-btn {
             padding: 10px 22px;
             border-radius: 100px;
@@ -133,12 +105,6 @@
             border: none;
             cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
-        }
-
-        .login-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(0, 86, 179, 0.3);
         }
 
         .user-profile {
@@ -149,19 +115,12 @@
             padding: 5px 15px 5px 5px;
             border-radius: 100px;
             border: 1px solid var(--glass-border);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-
-        .user-profile img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-        }
+        .user-profile img { width: 32px; height: 32px; border-radius: 50%; }
 
         .menu-btn {
             cursor: pointer;
-            width: 48px;
-            height: 48px;
+            width: 48px; height: 48px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -170,15 +129,11 @@
             border: 1px solid var(--glass-border);
             border-radius: 14px;
             z-index: 1100;
-            transition: 0.3s;
         }
-
-        .menu-btn:hover { background: var(--soft-blue); }
 
         .menu-btn span {
             display: block;
-            width: 26px;
-            height: 3px;
+            width: 26px; height: 3px;
             background: var(--primary-blue);
             border-radius: 4px;
             transition: 0.4s;
@@ -193,11 +148,9 @@
         .menu-btn.open span:nth-child(2) { opacity: 0; }
         .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); }
 
-        /* Sidebar Style */
         .sidebar {
             position: fixed;
-            top: 100px;
-            right: -320px;
+            top: 100px; right: -320px;
             width: 280px;
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(40px);
@@ -209,12 +162,9 @@
             flex-direction: column;
             gap: 12px;
             transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-            box-shadow: -10px 10px 40px rgba(0, 150, 255, 0.1);
         }
 
-        .sidebar.active {
-            right: 25px;
-        }
+        .sidebar.active { right: 25px; }
 
         .sidebar a {
             text-decoration: none;
@@ -223,81 +173,37 @@
             padding: 14px 22px;
             border-radius: 18px;
             background: rgba(255, 255, 255, 0.3);
-            border: 1px solid transparent;
-            transition: 0.3s;
         }
 
-        .sidebar a:hover {
-            background: white;
-            color: var(--primary-blue);
-            border-color: var(--glass-border);
-            transform: translateX(-5px);
-        }
-
-        /* Content Area & Pages */
-        .content-area {
-            padding-top: 85px;
-            min-height: 100vh;
-            position: relative;
-        }
+        .content-area { padding-top: 85px; min-height: 100vh; position: relative; }
 
         .page {
             display: none;
             padding: 60px 20px;
             max-width: 1100px;
             margin: 0 auto;
-            animation: pageIn 0.6s ease-out;
+            animation: fadeIn 0.6s ease-out;
         }
 
-        .page.active {
-            display: block;
-        }
+        .page.active { display: block; }
 
-        @keyframes pageIn {
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Hero Styling */
-        .hero {
-            text-align: center;
-            padding: 40px 0;
-        }
-
-        .hero img.logo-big {
-            width: 160px;
-            height: 160px;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px rgba(0, 86, 179, 0.15);
-            margin-bottom: 30px;
-            border: 4px solid white;
-        }
-
-        .hero h1 {
-            font-size: clamp(3.5rem, 10vw, 5.5rem);
-            font-weight: 900;
-            letter-spacing: -3px;
-            line-height: 0.9;
-            margin-bottom: 20px;
+        .hero { text-align: center; padding: 40px 0; }
+        .hero img.logo-big { width: 160px; border-radius: 40px; margin-bottom: 30px; }
+        .hero h1 { 
+            font-size: clamp(3.5rem, 10vw, 5.5rem); 
+            font-weight: 900; 
             background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
-            font-size: 1.4rem;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-weight: 500;
-        }
-
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 18px;
-        }
-
+        .btn-container { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+        
         .btn {
             width: 320px;
             height: 65px;
@@ -308,35 +214,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
-            cursor: pointer;
+            transition: 0.4s;
         }
 
-        .btn-add {
-            background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue));
-            color: white;
-            box-shadow: 0 10px 30px rgba(0, 150, 255, 0.3);
-        }
+        .btn-add { background: linear-gradient(135deg, var(--primary-blue), var(--sky-blue)); color: white; }
+        .btn-support { background: white; color: var(--primary-blue); border: 2px solid var(--glass-border); }
 
-        .btn-add:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 15px 40px rgba(0, 150, 255, 0.4); }
-
-        .btn-support {
-            background: white;
-            color: var(--primary-blue);
-            border: 2px solid var(--glass-border);
-        }
-
-        .btn-support:hover { background: var(--soft-blue); transform: scale(1.02); }
-
-        /* Dashboard & Grid */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(35px);
             border: 1px solid var(--glass-border);
             padding: 50px;
             border-radius: 40px;
-            box-shadow: 0 20px 60px rgba(0, 50, 100, 0.05);
         }
 
         .dashboard-grid {
@@ -347,74 +236,61 @@
         }
 
         .guild-card {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255,255,255,0.6);
             padding: 25px;
-            border-radius: 25px;
+            border-radius: 30px;
             text-align: center;
             border: 1px solid var(--glass-border);
             transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .guild-card:hover { transform: translateY(-5px); background: white; border-color: var(--sky-blue); }
+        .guild-card img { width: 80px; height: 80px; border-radius: 20px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        /* Redirect URI Debugger */
-        .uri-helper {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(255, 0, 0, 0.05);
-            border: 1px dashed #ff4d4d;
-            border-radius: 20px;
-            font-size: 0.95rem;
-            color: #d32f2f;
-            line-height: 1.6;
-        }
-
-        .uri-helper code {
-            display: block;
-            background: white;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 10px;
-            font-family: monospace;
-            font-weight: bold;
-            color: #000;
-            border: 1px solid #ddd;
-            word-break: break-all;
-        }
-
-        footer {
-            text-align: center;
-            padding: 100px 20px;
-            color: var(--primary-blue);
+        .btn-action {
+            width: 100%;
+            padding: 12px;
+            border-radius: 15px;
+            border: none;
             font-weight: 800;
-            letter-spacing: 2px;
-            opacity: 0.5;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
         }
 
-        /* Support Page Specific */
-        .support-info { text-align: center; }
-        .support-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
+        .btn-manage { background: var(--primary-blue); color: white; }
+
+        .status-box {
+            background: rgba(0, 86, 179, 0.05);
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        footer { text-align: center; padding: 100px 20px; color: var(--primary-blue); font-weight: 800; opacity: 0.5; }
     </style>
 </head>
-<body dir="ltr">
+<body>
 
     <div class="ambient-bg"></div>
     <div id="pageBlurOverlay" onclick="closeMenu()"></div>
 
     <nav>
         <a href="#" class="nav-logo" onclick="navigateTo('home')">
-            <img src="IMG_3988.png" alt="ShieldX" onerror="this.src='https://via.placeholder.com/50/0056b3/fff?text=S'">
+            <img src="IMG_3988.png" alt="ShieldX Logo" onerror="this.src='https://via.placeholder.com/50/0056b3/fff?text=S'">
             <span>SHIELDX</span>
         </a>
         
         <div class="nav-right">
             <div id="authContainer">
-                <button class="login-btn" onclick="loginWithDiscord()">Login with Discord</button>
+                <button class="login-btn" onclick="loginWithDiscord()">Login</button>
             </div>
             <div class="menu-btn" id="menuBtn" onclick="toggleMenu(event)">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
@@ -424,87 +300,51 @@
         <a href="#" onclick="handleDashboardNav()">Dashboard</a>
         <a href="#" onclick="navigateTo('support')">Support</a>
         <a href="#" onclick="navigateTo('tos')">ToS</a>
-        <a href="#" onclick="navigateTo('privacy')">Privacy Policy</a>
+        <a href="#" onclick="navigateTo('privacy')">Privacy</a>
     </div>
 
     <div class="content-area">
-        <!-- Home Page -->
         <section id="home" class="page active">
             <div class="hero">
-                <img src="IMG_3988.png" alt="ShieldX Logo" class="logo-big">
+                <img src="IMG_3988.png" alt="ShieldX" class="logo-big">
                 <h1>ShieldX</h1>
-                <p>Advanced security and protection for your community.</p>
+                <p>Smart Security for Discord Servers.</p>
                 <div class="btn-container">
-                    <a href="https://discordapp.com/oauth2/authorize?client_id=1490096826349518938&scope=bot%20applications.commands&permissions=8" target="_blank" class="btn btn-add">Add to Discord</a>
-                    <a href="#" onclick="handleDashboardNav()" class="btn btn-support">Manage Servers</a>
+                    <a href="https://discordapp.com/oauth2/authorize?client_id=1490096826349518938&scope=bot%20applications.commands&permissions=8" class="btn btn-add">Add Bot</a>
+                    <a href="#" onclick="navigateTo('support')" class="btn btn-support">Support Server</a>
                 </div>
             </div>
         </section>
 
-        <!-- Dashboard Page -->
         <section id="dashboard" class="page">
             <div class="glass-card">
-                <h2>Dashboard</h2>
-                <p>Select a server to configure ShieldX.</p>
-                <div id="guildsGrid" class="dashboard-grid">
-                    <p style="grid-column: 1/-1; text-align: center; opacity: 0.6;">Please login to view your servers.</p>
-                </div>
-
-                <!-- Fix for OAuth2 Redirect URI Error -->
-                <div class="uri-helper" dir="rtl">
-                    <strong>פתרון לשגיאת Invalid Redirect:</strong><br>
-                    כדי שהכניסה תעבוד, עליך להעתיק את הכתובת הבאה ל-Discord Developer Portal (תחת OAuth2 -> Redirects):
-                    <code id="currentUriDisplay"></code>
-                    <small>* וודא ששמרת (Save Changes) בדיסקורד לאחר ההדבקה.</small>
-                </div>
+                <h2>Server Management</h2>
+                <div id="statusBox" class="status-box">Please login to view your servers.</div>
+                <div id="guildsGrid" class="dashboard-grid"></div>
             </div>
         </section>
 
-        <!-- Support Page -->
         <section id="support" class="page">
-            <div class="glass-card support-info">
+            <div class="glass-card">
                 <h2>Support Center</h2>
-                <p>Need help? Our team is available 24/7.</p>
-                <div class="support-links">
-                    <a href="https://discord.gg/yourlink" target="_blank" class="btn btn-add" style="width: auto; padding: 0 40px;">Join Discord</a>
-                    <a href="mailto:support@shieldx.bot" class="btn btn-support" style="width: auto; padding: 0 40px;">Email Us</a>
+                <p>Need help? Join our official support server for 24/7 assistance.</p>
+                <div style="margin-top: 25px;">
+                    <a href="YOUR_SUPPORT_SERVER_LINK" class="btn btn-add" style="width: 100%;">Join Support Discord</a>
                 </div>
             </div>
         </section>
 
-        <!-- ToS Page -->
-        <section id="tos" class="page">
-            <div class="glass-card">
-                <h2>Terms of Service</h2>
-                <p style="margin-top: 20px; color: var(--text-muted); line-height: 1.8;">
-                    By using ShieldX, you agree to our terms. We provide security services to protect your Discord server...
-                    [Content remains as before]
-                </p>
-            </div>
-        </section>
-
-        <!-- Privacy Page -->
-        <section id="privacy" class="page">
-            <div class="glass-card">
-                <h2>Privacy Policy</h2>
-                <p style="margin-top: 20px; color: var(--text-muted); line-height: 1.8;">
-                    Your data is safe with us. We only store necessary information to ensure the bot functions correctly...
-                    [Content remains as before]
-                </p>
-            </div>
-        </section>
+        <section id="tos" class="page"><div class="glass-card"><h2>Terms of Service</h2><p>Legal information regarding bot usage.</p></div></section>
+        <section id="privacy" class="page"><div class="glass-card"><h2>Privacy Policy</h2><p>How we handle user data.</p></div></section>
     </div>
 
-    <footer>SHIELDX SECURITY &copy; 2026</footer>
+    <footer>&copy; 2026 SHIELDX SECURITY</footer>
 
     <script>
         const CLIENT_ID = '1490096826349518938';
-        // Precise redirect URI without hash or search params
+        const BOT_API_URL = 'http://gamehost.serv4u.co.il:6069/api/bot-guilds';
         const REDIRECT_URI = window.location.origin + window.location.pathname;
         let accessToken = null;
-
-        // Display current URI for user to copy
-        document.getElementById('currentUriDisplay').innerText = REDIRECT_URI;
 
         function toggleMenu(e) {
             e?.stopPropagation();
@@ -523,15 +363,12 @@
             closeMenu();
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            if(id === 'dashboard' && accessToken) fetchUserGuilds();
+            if(id === 'dashboard' && accessToken) fetchDashboardData();
         }
 
         function loginWithDiscord() {
             const scope = encodeURIComponent('identify guilds');
-            const url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${scope}`;
-            window.location.href = url;
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${scope}`;
         }
 
         window.onload = () => {
@@ -541,7 +378,6 @@
                 accessToken = token;
                 updateAuthUI();
                 navigateTo('dashboard');
-                // Clean URL hash
                 window.history.replaceState({}, document.title, REDIRECT_URI);
             }
         };
@@ -552,55 +388,70 @@
                     headers: { Authorization: `Bearer ${accessToken}` }
                 });
                 const user = await res.json();
-                if (user.id) {
-                    document.getElementById('authContainer').innerHTML = `
-                        <div class="user-profile">
-                            <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" onerror="this.src='https://via.placeholder.com/32'">
-                            <span>${user.username}</span>
-                        </div>
-                    `;
-                }
-            } catch (e) { console.error("Auth UI Update Failed", e); }
+                document.getElementById('authContainer').innerHTML = `
+                    <div class="user-profile">
+                        <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" onerror="this.src='https://via.placeholder.com/32'">
+                        <span>${user.username}</span>
+                    </div>
+                `;
+            } catch (e) {}
         }
 
-        async function fetchUserGuilds() {
+        async function fetchDashboardData() {
             const grid = document.getElementById('guildsGrid');
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">Loading your servers...</p>';
+            const status = document.getElementById('statusBox');
+            grid.innerHTML = '';
+            status.innerText = 'Syncing data with ShieldX Bot...';
+
             try {
-                const res = await fetch('https://discord.com/api/users/@me/guilds', {
+                // Fetch User's Guilds
+                const resUser = await fetch('https://discord.com/api/users/@me/guilds', {
                     headers: { Authorization: `Bearer ${accessToken}` }
                 });
-                const guilds = await res.json();
-                
-                // Filter for servers where user is Admin (0x8) or Owner
-                const adminGuilds = guilds.filter(g => (parseInt(g.permissions) & 0x8) === 0x8 || g.owner);
-                
-                if (adminGuilds.length === 0) {
-                    grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No servers found where you have Administrator permissions.</p>';
+                const userGuilds = await resUser.json();
+
+                // Fetch Bot's Guilds
+                const resBot = await fetch(BOT_API_URL);
+                const botGuildIds = await resBot.json();
+
+                // Filter: User has Admin/Owner AND Bot is in the server
+                const filtered = userGuilds.filter(g => {
+                    const isAdmin = (parseInt(g.permissions) & 0x8) === 0x8 || g.owner;
+                    const botInServer = botGuildIds.includes(g.id);
+                    return isAdmin && botInServer;
+                });
+
+                if (filtered.length === 0) {
+                    status.innerText = 'No servers found where both you are an admin and ShieldX is present.';
                     return;
                 }
 
-                grid.innerHTML = adminGuilds.map(g => `
-                    <div class="guild-card">
-                        <img src="${g.icon ? `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.png` : 'https://via.placeholder.com/60/0056b3/fff?text=' + g.name[0]}" style="width:60px; height:60px; border-radius:15px; margin-bottom:15px;">
-                        <h4 style="font-size: 1.1rem; margin-bottom: 5px;">${g.name}</h4>
-                        <button onclick="alert('Configuration for ${g.name.replace(/'/g, "\\'")} coming soon!')" class="login-btn" style="width:100%; margin-top:10px; padding:8px;">Configure</button>
-                    </div>
-                `).join('');
+                status.innerText = `Manageable Servers (${filtered.length})`;
+                grid.innerHTML = filtered.map(g => {
+                    const iconUrl = g.icon ? `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.png` : 'https://via.placeholder.com/80/0056b3/fff?text=' + g.name[0];
+                    return `
+                        <div class="guild-card">
+                            <img src="${iconUrl}" alt="${g.name}">
+                            <h4>${g.name}</h4>
+                            <button onclick="manageGuild('${g.id}')" class="btn-action btn-manage">Open Dashboard</button>
+                        </div>
+                    `;
+                }).join('');
+
             } catch (e) { 
-                grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: red;">Failed to load servers. Try logging in again.</p>'; 
+                status.innerText = 'Error connecting to bot API. Make sure the bot is running.';
+                console.error(e);
             }
+        }
+
+        function manageGuild(id) {
+            alert("Management Dashboard for " + id + " is coming soon!");
         }
 
         function handleDashboardNav() {
             if(!accessToken) loginWithDiscord();
             else navigateTo('dashboard');
         }
-
-        // Close menu on ESC key
-        document.addEventListener('keydown', (e) => {
-            if(e.key === 'Escape') closeMenu();
-        });
     </script>
 </body>
 </html>
