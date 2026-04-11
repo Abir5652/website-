@@ -14,6 +14,7 @@
             --glass-border: rgba(255, 255, 255, 0.8);
             --text-dark: #003366;
             --text-muted: #4b5563;
+            --success-green: #22c55e;
         }
 
         * {
@@ -91,6 +92,34 @@
 
         .nav-logo img { height: 42px; width: 42px; border-radius: 10px; }
 
+        .nav-right { display: flex; align-items: center; gap: 15px; }
+
+        /* Auth Button Styling */
+        .login-btn {
+            padding: 10px 22px;
+            border-radius: 100px;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .login-btn:hover { background: #004494; transform: scale(1.05); }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 5px 15px 5px 5px;
+            border-radius: 100px;
+            border: 1px solid var(--glass-border);
+        }
+        .user-profile img { width: 32px; height: 32px; border-radius: 50%; }
+
         .menu-btn {
             cursor: pointer;
             width: 48px; height: 48px;
@@ -163,7 +192,7 @@
         .page {
             display: none;
             padding: 60px 20px;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             animation: fadeIn 0.6s ease-out;
         }
@@ -177,7 +206,7 @@
 
         /* Hero & Buttons */
         .hero { text-align: center; padding: 40px 0; }
-        .hero img { width: 160px; border-radius: 40px; margin-bottom: 30px; box-shadow: 0 15px 45px rgba(0, 150, 255, 0.2); }
+        .hero img.logo-big { width: 160px; border-radius: 40px; margin-bottom: 30px; box-shadow: 0 15px 45px rgba(0, 150, 255, 0.2); }
         .hero h1 { 
             font-size: clamp(3.5rem, 10vw, 5.5rem); 
             font-weight: 900; 
@@ -220,6 +249,33 @@
 
         .btn:hover { transform: translateY(-7px); filter: brightness(1.05); box-shadow: 0 15px 40px rgba(0, 210, 255, 0.3); }
 
+        /* Dashboard Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .guild-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 30px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .guild-card:hover { transform: translateY(-5px); background: white; }
+        .guild-icon { width: 80px; height: 80px; border-radius: 25px; margin-bottom: 15px; }
+        .guild-name { font-weight: 800; margin-bottom: 10px; font-size: 1.2rem; }
+        .btn-manage {
+            display: block; width: 100%; padding: 12px; border-radius: 15px;
+            background: var(--soft-blue); color: var(--primary-blue); font-weight: 800;
+            text-decoration: none; border: 1px solid var(--glass-border); transition: 0.2s;
+        }
+        .btn-manage:hover { background: var(--primary-blue); color: white; }
+
         /* Legal Glass Cards */
         .glass-card {
             background: var(--glass-bg);
@@ -244,7 +300,14 @@
         .legal-section p { color: var(--text-muted); line-height: 1.8; font-weight: 500; font-size: 1.1rem; }
         .legal-section ul { list-style: none; margin-top: 15px; }
         .legal-section ul li { color: var(--text-muted); margin-bottom: 12px; padding-left: 35px; position: relative; font-weight: 500; }
-        .legal-section ul li::before { content: ""; position: absolute; left: 0; }
+        .legal-section ul li::before { content: "•"; position: absolute; left: 15px; color: var(--sky-blue); font-weight: 900; }
+
+        #loadingOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--soft-blue);
+            z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .loader { width: 50px; height: 50px; border: 5px solid var(--glass-border); border-top: 5px solid var(--primary-blue); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         footer { text-align: center; padding: 100px 20px; color: var(--primary-blue); font-weight: 800; opacity: 0.5; }
 
@@ -252,10 +315,16 @@
             .hero h1 { font-size: 3.2rem; }
             .glass-card { padding: 30px 20px; }
             .btn { width: 90%; }
+            .nav-logo span { display: none; }
         }
     </style>
 </head>
 <body>
+
+    <div id="loadingOverlay">
+        <div class="loader"></div>
+        <p style="margin-top: 15px; font-weight: 800; color: var(--primary-blue);">Syncing with Discord...</p>
+    </div>
 
     <div class="ambient-bg"></div>
     <div id="pageBlurOverlay" onclick="closeMenu()"></div>
@@ -265,15 +334,22 @@
             <img src="IMG_3988.png" alt="ShieldX Logo" onerror="this.src='https://via.placeholder.com/50/0056b3/fff?text=S'">
             <span>SHIELDX</span>
         </a>
-        <div class="menu-btn" id="menuBtn" onclick="toggleMenu(event)">
-            <span></span>
-            <span></span>
-            <span></span>
+        
+        <div class="nav-right">
+            <div id="authContainer">
+                <button class="login-btn" onclick="loginWithDiscord()">Login with Discord</button>
+            </div>
+            <div class="menu-btn" id="menuBtn" onclick="toggleMenu(event)">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </nav>
 
     <div class="sidebar" id="sidebar">
         <a href="#" onclick="navigateTo('home')">Home</a>
+        <a href="#" onclick="handleDashboardNav()">Dashboard</a>
         <a href="#" onclick="navigateTo('tos')">Terms of Service</a>
         <a href="#" onclick="navigateTo('privacy')">Privacy Policy</a>
         <a href="#" onclick="navigateTo('security')">Security Policy</a>
@@ -285,20 +361,31 @@
         <!-- HOME PAGE -->
         <section id="home" class="page active">
             <div class="hero">
-                <img src="IMG_3988.png" alt="ShieldX Logo">
+                <img src="IMG_3988.png" alt="ShieldX Logo" class="logo-big">
                 <h1>ShieldX</h1>
                 <p>
                     ShieldX is the most complete Discord bot for security and management of your server. 
                     Protect your server against attacks, spam and more with just a few clicks.
                 </p>
                 <div class="btn-container">
-                    <a href="https://discordapp.com/oauth2/authorize?client_id=1490096826349518938&scope=bot%20applications.commands&permissions=268561646" class="btn btn-add">Add to Discord</a>
-                    <a href="https://discord.gg/C8nKXyMpwS" target="_blank" class="btn btn-support">Support Server</a>
+                    <a href="https://discordapp.com/oauth2/authorize?client_id=1490096826349518938&scope=bot%20applications.commands&permissions=8" class="btn btn-add">Add to Discord</a>
+                    <a href="#" onclick="handleDashboardNav()" class="btn btn-support">Open Dashboard</a>
                 </div>
             </div>
         </section>
 
-        <!-- TERMS OF SERVICE - ACCURATE TRANSLATION -->
+        <!-- DASHBOARD PAGE -->
+        <section id="dashboard" class="page">
+            <div class="glass-card">
+                <h2>Dashboard</h2>
+                <p>Manage security for your authorized servers.</p>
+                <div id="guildsGrid" class="dashboard-grid">
+                    <!-- Dynamic servers here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TERMS OF SERVICE -->
         <section id="tos" class="page">
             <div class="glass-card">
                 <h2>Terms of Service</h2>
@@ -307,61 +394,22 @@
 
                 <div class="legal-section">
                     <h3>1. General</h3>
-                    <p>ShieldX is a bot and management system for securing Discord servers. The service is provided "AS IS", without any commitment to availability, reliability, or proper operation at all times.</p>
+                    <p>ShieldX is a bot and management system for securing Discord servers. The service is provided "AS IS".</p>
                 </div>
 
                 <div class="legal-section">
                     <h3>2. Usage Responsibility</h3>
-                    <p>Use of the bot is the sole responsibility of the server owners. The user is responsible for configuring appropriate permissions and overseeing the bot's operations.</p>
+                    <p>Use of the bot is the sole responsibility of the server owners.</p>
                 </div>
 
                 <div class="legal-section">
                     <h3>3. Limitation of Liability</h3>
-                    <p>ShieldX, its developers, and operators shall not be liable for any damage of any kind, direct or indirect, including but not limited to:</p>
-                    <ul>
-                        <li>Deletion of messages, channels, or data</li>
-                        <li>Automated actions such as kicks, bans, or timeouts</li>
-                        <li>Server disabling or disruption of server functionality</li>
-                        <li>Loss of information</li>
-                        <li>Breaches, attacks, or unauthorized access</li>
-                        <li>System malfunctions or programming errors</li>
-                    </ul>
-                    <p>The use of the bot and system is at the user's sole responsibility.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>4. Permissions</h3>
-                    <p>Adding the bot to a server constitutes approval to grant the permissions required for its operation, including administrative permissions if necessary.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>5. Prohibited Use</h3>
-                    <p>The service must not be used for:</p>
-                    <ul>
-                        <li>Illegal activity</li>
-                        <li>Attempts to breach, exploit vulnerabilities, or damage the system</li>
-                        <li>Abuse of bot functions</li>
-                    </ul>
-                </div>
-
-                <div class="legal-section">
-                    <h3>6. Service Availability</h3>
-                    <p>There is no commitment to the continuous availability of the service. The service may be stopped, changed, or closed at any time without prior notice.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>7. Termination of Use</h3>
-                    <p>We reserve the right to suspend, limit, or block access to the service at any time, at our sole discretion.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>8. Changes to Terms</h3>
-                    <p>We reserve the right to update these terms at any time. Continued use of the service constitutes agreement to the updated terms.</p>
+                    <p>ShieldX developers shall not be liable for any damage including data loss or automated moderation actions.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PRIVACY POLICY - ACCURATE TRANSLATION -->
+        <!-- PRIVACY POLICY -->
         <section id="privacy" class="page">
             <div class="glass-card">
                 <h2>Privacy Policy</h2>
@@ -369,91 +417,22 @@
                 
                 <div class="legal-section">
                     <h3>1. Information Collected</h3>
-                    <p>When using ShieldX, technical and operational information may be collected, including:</p>
-                    <ul>
-                        <li>User and Server identifiers (User ID, Server ID)</li>
-                        <li>Messages for security and anti-spam purposes</li>
-                        <li>Basic activity data</li>
-                        <li>Technical information such as IP address, browser type, and operating system</li>
-                    </ul>
+                    <p>We collect User IDs and Server IDs to provide security services and identify malicious activity.</p>
                 </div>
-
                 <div class="legal-section">
-                    <h3>2. Use of Information</h3>
-                    <p>The information is collected and used for:</p>
-                    <ul>
-                        <li>Operating and maintaining the service</li>
-                        <li>Securing servers and users</li>
-                        <li>Identifying and preventing malicious activity</li>
-                        <li>Improving the service</li>
-                    </ul>
-                </div>
-
-                <div class="legal-section">
-                    <h3>3. Sharing of Information</h3>
-                    <p>Information is not sold or transferred to third parties, except in the following cases:</p>
-                    <ul>
-                        <li>Legal requirement</li>
-                        <li>Protection of legal rights</li>
-                        <li>Prevention of illegal or malicious activity</li>
-                    </ul>
-                </div>
-
-                <div class="legal-section">
-                    <h3>4. Information Security</h3>
-                    <p>We take reasonable measures to protect the information, but we cannot guarantee complete security.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>5. Data Retention</h3>
-                    <p>The information is kept as long as it is required for the operation of the service or according to legal requirements.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>6. User Rights</h3>
-                    <p>Users may request to review, correct, or delete information, subject to technical and legal limitations.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>7. Changes to Policy</h3>
-                    <p>We reserve the right to update this policy at any time.</p>
+                    <h3>2. Data Security</h3>
+                    <p>Data is stored securely and never sold to third parties.</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECURITY POLICY - ACCURATE TRANSLATION -->
+        <!-- SECURITY POLICY -->
         <section id="security" class="page">
             <div class="glass-card">
                 <h2>Security Policy</h2>
-                
                 <div class="legal-section">
-                    <h3>1. General</h3>
-                    <p>ShieldX operates to provide a security and management system for Discord servers through automated mechanisms for identifying unusual activity.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>2. Automated Actions</h3>
-                    <p>The system may perform automated actions such as deleting messages, muting, kicking, or banning, based on the identification of suspicious activity.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>3. Limitations</h3>
-                    <p>There is no commitment to prevent all malicious activity. Cases of errors, misidentification, or malfunctions may occur.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>4. Responsibility</h3>
-                    <p>ShieldX is not responsible for damage caused as a result of the system's actions, including incorrect or unexpected actions.</p>
-                </div>
-
-                <div class="legal-section">
-                    <h3>5. User Responsibility</h3>
-                    <p>The user is responsible for:</p>
-                    <ul>
-                        <li>Configuring permissions correctly</li>
-                        <li>Monitoring the bot's operation</li>
-                        <li>Using the service in accordance with the law</li>
-                    </ul>
+                    <h3>Automated Protection</h3>
+                    <p>ShieldX uses intelligent algorithms to detect raids and spam automatically.</p>
                 </div>
             </div>
         </section>
@@ -465,6 +444,10 @@
     </footer>
 
     <script>
+        const CLIENT_ID = '1490096826349518938';
+        const REDIRECT_URI = window.location.origin + window.location.pathname;
+        let accessToken = null;
+
         function toggleMenu(event) {
             if (event) event.stopPropagation();
             const sidebar = document.getElementById('sidebar');
@@ -491,9 +474,74 @@
                 target.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+            if(pageId === 'dashboard') fetchUserGuilds();
+        }
+
+        function handleDashboardNav() {
+            if (!accessToken) loginWithDiscord();
+            else navigateTo('dashboard');
+        }
+
+        function loginWithDiscord() {
+            const scope = encodeURIComponent('identify guilds');
+            window.location.href = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=${scope}`;
+        }
+
+        window.onload = () => {
+            const fragment = new URLSearchParams(window.location.hash.slice(1));
+            const token = fragment.get('access_token');
+            if (token) {
+                accessToken = token;
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                updateAuthUI().then(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    navigateTo('dashboard');
+                });
+                window.history.replaceState({}, document.title, REDIRECT_URI);
+            }
+        };
+
+        async function updateAuthUI() {
+            try {
+                const response = await fetch('https://discord.com/api/users/@me', {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                });
+                const user = await response.json();
+                document.getElementById('authContainer').innerHTML = `
+                    <div class="user-profile">
+                        <img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" onerror="this.src='https://via.placeholder.com/32'">
+                        <span style="font-weight:700;">${user.username}</span>
+                    </div>
+                `;
+            } catch (e) { accessToken = null; }
+        }
+
+        async function fetchUserGuilds() {
+            const grid = document.getElementById('guildsGrid');
+            grid.innerHTML = '<p>Loading your servers...</p>';
+            try {
+                const response = await fetch('https://discord.com/api/users/@me/guilds', {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                });
+                const guilds = await response.json();
+                const adminGuilds = guilds.filter(g => (parseInt(g.permissions) & 0x8) === 0x8);
+
+                if (adminGuilds.length > 0) {
+                    grid.innerHTML = adminGuilds.map(guild => {
+                        const icon = guild.icon ? `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png` : `https://via.placeholder.com/80/0056b3/fff?text=${guild.name[0]}`;
+                        return `
+                            <div class="guild-card">
+                                <img src="${icon}" class="guild-icon">
+                                <div class="guild-name">${guild.name}</div>
+                                <a href="#" class="btn-manage">Settings</a>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    grid.innerHTML = '<p>No servers found where you are an Administrator.</p>';
+                }
+            } catch (e) { grid.innerHTML = '<p>Failed to load servers. Try logging in again.</p>'; }
         }
     </script>
 </body>
 </html>
-
-אל תגיב
